@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/industry-838d6325-4d2f-49b5-ba02-b2d076d4c4a2/styles.css">
+<script src="_ds/industry-838d6325-4d2f-49b5-ba02-b2d076d4c4a2/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500&display=swap">
+<style>
+  html { scroll-behavior: smooth; background: #0b0c0d; }
+  body { margin: 0; background: #0b0c0d; color: #f2f2f3; font-family: var(--font-body); }
+  a { color: #f2f2f3; text-decoration: none; }
+  a:hover { color: #5980a6; }
+  ::selection { background: rgba(89,128,166,.35); }
+  @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .12; } }
+  @keyframes slash { 0% { transform: rotate(19deg) translateX(-170%); opacity: 0; } 12% { opacity: 1; } 100% { transform: rotate(19deg) translateX(330%); opacity: 0; } }
+  @keyframes glint { 0%, 100% { opacity: .25; } 50% { opacity: .8; } }
+</style>
+</helmet>
+
+<div style="--color-bg:#0b0c0d;--color-surface:#15171a;--color-text:#f2f2f3;--color-divider:rgba(242,242,243,.17);background:#0b0c0d;color:#f2f2f3;font-family:var(--font-body)">
+
+<div style="position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:55;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:14px">
+  <div style="width:1px;height:70px;background:linear-gradient(to bottom, transparent, rgba(242,242,243,.28))"></div>
+  <div style="writing-mode:vertical-rl;font-family:'Noto Serif JP',serif;font-weight:300;font-size:12px;letter-spacing:.4em;color:rgba(242,242,243,.28)">整備・規律・記録</div>
+  <div style="width:1px;height:70px;background:linear-gradient(to top, transparent, rgba(242,242,243,.28))"></div>
+</div>
+<div style="position:fixed;top:0;left:0;right:0;height:2px;z-index:99"><div data-progress="1" style="height:100%;width:0%;background:#5980a6;box-shadow:0 0 12px 1px rgba(89,128,166,.9)"></div></div>
+<div style="position:fixed;top:2px;left:0;right:0;height:6px;z-index:98;pointer-events:none;background-image:repeating-linear-gradient(to right, rgba(242,242,243,.18) 0 1px, transparent 1px 40px)"></div>
+
+<div style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 34px;height:60px;background:rgba(11,12,13,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(242,242,243,.14);box-shadow:0 1px 0 rgba(242,242,243,.06), 0 6px 20px rgba(0,0,0,.5)">
+  <div style="display:flex;align-items:center;gap:13px;min-width:0;flex-shrink:0">
+    <span class="blueprint" style="position:relative;display:flex;align-items:center;justify-content:center;width:30px;height:30px;flex-shrink:0;border-color:rgba(242,242,243,.4);font-family:var(--font-heading);font-size:14px;letter-spacing:.06em;color:#f2f2f3"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>IC</span>
+    <span style="font-family:var(--font-heading);font-size:20px;letter-spacing:.07em;white-space:nowrap">IVAN CRONJE</span>
+    <span style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:12px;color:#5980a6">技術</span>
+    <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.5)">Hospitality Engineering</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px;min-width:0;flex-wrap:nowrap;overflow:hidden">
+    <a href="#michelin" data-navlink="1" style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:rgba(242,242,243,.66)">Michelin Key</a>
+    <a href="#properties" data-navlink="1" style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:rgba(242,242,243,.66)">Properties</a>
+    <a href="#work" data-navlink="1" style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:rgba(242,242,243,.66)">Work</a>
+    <a href="#projects" data-navlink="1" style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:rgba(242,242,243,.66)">Projects</a>
+    <a href="#discipline" data-navlink="1" style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:rgba(242,242,243,.66)">Discipline</a>
+    <a href="#contact" class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:.06em;padding:7px 17px;flex-shrink:0;white-space:nowrap;background:#5980a6;border-color:#5980a6;color:#0b0c0d"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Get in touch</a>
+  </div>
+</div>
+
+<section style="position:relative;overflow:hidden;padding:104px 40px 72px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div data-parallax="-0.07" style="position:absolute;inset:-12% 0;pointer-events:none;background-image:repeating-linear-gradient(to right, rgba(242,242,243,.07) 0 1px, transparent 1px 96px),repeating-linear-gradient(to bottom, rgba(242,242,243,.07) 0 1px, transparent 1px 96px);mask-image:linear-gradient(to bottom, rgba(0,0,0,.75), transparent 82%)"></div>
+  <div data-parallax="0.14" style="position:absolute;top:-18%;right:-6%;width:46vw;height:46vw;pointer-events:none;background:radial-gradient(circle, rgba(89,128,166,.22), transparent 66%)"></div>
+  <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none"><div style="position:absolute;top:-30%;left:-25%;width:34%;height:170%;background:linear-gradient(90deg, transparent, rgba(89,128,166,.28) 42%, rgba(242,242,243,.92) 50%, rgba(89,128,166,.28) 58%, transparent);animation:slash 1.35s cubic-bezier(.65,0,.25,1) .5s both"></div></div>
+  <div style="position:relative;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1.42fr .58fr;gap:58px;align-items:end">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+        <span style="width:7px;height:7px;background:#5980a6;animation:blink 2.4s infinite"></span>
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">Knysna, Western Cape · South Africa</span>
+      </div>
+      <h1 style="margin:0;font-size:clamp(64px,11.6vw,182px);line-height:.84;letter-spacing:-.022em;text-transform:uppercase">
+        <span style="display:block;overflow:hidden"><span data-hero-line="1" style="display:block;transform:translateY(105%);transition:transform 1.1s cubic-bezier(.16,1,.3,1)">Ivan</span></span>
+        <span style="display:block;overflow:hidden"><span data-hero-line="2" style="display:block;transform:translateY(105%);transition:transform 1.1s cubic-bezier(.16,1,.3,1) .1s;color:#5980a6">Cronje</span></span>
+      </h1>
+      <div data-reveal="1" data-delay="500" style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin-top:30px;max-width:660px">
+        <p style="margin:0;font-family:var(--font-heading);font-size:28px;line-height:1.22;letter-spacing:.005em">Hospitality Engineering Leader — Chief Engineer Candidate</p>
+        <p style="margin:16px 0 0;font-size:17px;line-height:1.6;color:rgba(242,242,243,.8);text-wrap:pretty">I build engineering departments and deliver capital projects across 4-star, 5-star and 110-unit resort properties. Hot water at the tap, rooms back in inventory, plant that never interrupts a stay. Direct, evidence-led, and honest about gaps — with systems that teams can run under pressure.</p>
+      </div>
+      <div data-reveal="1" data-delay="650" style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+        <a href="tel:+27678476280" class="btn btn-primary blueprint" style="font-family:var(--font-heading);font-size:15px;letter-spacing:.06em;padding:11px 22px;background:#5980a6;border-color:#5980a6;color:#0b0c0d"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>(+27) 67 847 6280</a>
+        <a href="mailto:ivancronje86@gmail.com" class="btn btn-secondary" style="font-family:var(--font-heading);font-size:15px;letter-spacing:.06em;padding:11px 22px;border-color:rgba(242,242,243,.28);color:#f2f2f3">ivancronje86@gmail.com</a>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:stretch">
+      <div data-parallax="0.2" style="writing-mode:vertical-rl;font-family:'Noto Serif JP',serif;font-weight:300;font-size:15px;letter-spacing:.42em;color:rgba(242,242,243,.32);align-self:flex-end;padding-bottom:6px">整備・規律・記録</div>
+      <div data-parallax="0.06" data-reveal="1" data-delay="300" style="flex:1;opacity:0;transform:translateY(30px);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)">
+        <div style="position:relative;padding:14px 16px;border:1px solid rgba(242,242,243,.16)">
+          <div style="position:absolute;top:6px;left:16px;right:16px;height:5px;background-image:repeating-linear-gradient(to right, rgba(242,242,243,.34) 0 1px, transparent 1px 12px)"></div>
+          <div style="position:absolute;bottom:6px;left:16px;right:16px;height:5px;background-image:repeating-linear-gradient(to right, rgba(242,242,243,.34) 0 1px, transparent 1px 12px)"></div>
+          <div class="blueprint" style="position:relative;aspect-ratio:3/4;overflow:hidden;background:#0b0c0d;border-color:rgba(242,242,243,.34)">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <img src="portrait-2.jpg" alt="Ivan Cronje" style="display:block;width:100%;height:100%;object-fit:cover;object-position:50% 24%;filter:grayscale(1) contrast(1.1) brightness(1.42)">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(89,128,166,.5), rgba(89,128,166,.28));mix-blend-mode:soft-light"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg, transparent 55%, rgba(11,12,13,.5));mix-blend-mode:normal"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(200deg, rgba(242,242,243,.1), transparent 46%)"></div>
+            <div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(to bottom, rgba(11,12,13,.18) 0 1px, transparent 1px 3px);opacity:.35"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border-top:1px solid rgba(242,242,243,.3);background:rgba(11,12,13,.72);font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.72)"><span>I. Cronje</span><span>Plate 01 · rev 08</span></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:12px;background:rgba(242,242,243,.16);border:1px solid rgba(242,242,243,.16)">
+          <div style="background:#0b0c0d;padding:9px 11px"><div style="font-family:ui-monospace,monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.4)">Subject</div><div style="margin-top:4px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,243,.78)">Maintenance manager</div></div>
+          <div style="background:#0b0c0d;padding:9px 11px"><div style="font-family:ui-monospace,monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.4)">Station</div><div style="margin-top:4px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,243,.78)">The Moorings, Knysna</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0;border-bottom:1px solid rgba(242,242,243,.14);overflow:hidden;background:#101214">
+  <div style="display:flex;width:200%;animation:marq 44s linear infinite;padding:14px 0;font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(242,242,243,.55)">
+    <div style="display:flex;gap:44px;width:50%;flex:none;padding-right:44px"><span>Hot water plant</span><span style="color:#5980a6">+</span><span>Legionella control</span><span style="color:#5980a6">+</span><span>Guest room readiness</span><span style="color:#5980a6">+</span><span>HIRA &amp; risk assessment</span><span style="color:#5980a6">+</span><span>Preventive maintenance</span><span style="color:#5980a6">+</span><span>Capital motivation</span><span style="color:#5980a6">+</span><span>Utilities analytics</span><span style="color:#5980a6">+</span><span>SLA negotiation</span><span style="color:#5980a6">+</span><span>Fire &amp; life safety</span><span style="color:#5980a6">+</span></div>
+    <div style="display:flex;gap:44px;width:50%;flex:none;padding-right:44px"><span>Hot water plant</span><span style="color:#5980a6">+</span><span>Legionella control</span><span style="color:#5980a6">+</span><span>Guest room readiness</span><span style="color:#5980a6">+</span><span>HIRA &amp; risk assessment</span><span style="color:#5980a6">+</span><span>Preventive maintenance</span><span style="color:#5980a6">+</span><span>Capital motivation</span><span style="color:#5980a6">+</span><span>Utilities analytics</span><span style="color:#5980a6">+</span><span>SLA negotiation</span><span style="color:#5980a6">+</span><span>Fire &amp; life safety</span><span style="color:#5980a6">+</span></div>
+  </div>
+</section>
+
+<section id="michelin" style="position:relative;overflow:hidden;padding:120px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div data-parallax="0.12" data-parallax-base="translateX(-50%)" style="position:absolute;left:50%;top:-30%;width:70vw;height:70vw;transform:translateX(-50%);pointer-events:none;background:radial-gradient(circle, rgba(89,128,166,.18), transparent 62%)"></div>
+  <div style="position:relative;max-width:1000px;margin:0 auto;text-align:center">
+    <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#5980a6">一 · Park Hyatt Johannesburg · 2025</div>
+    <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;margin:44px 0 34px">
+      <div data-parallax="0.08" style="position:relative;width:132px;height:132px;border:1px solid rgba(89,128,166,.8);border-radius:50%;animation:glint 5s ease-in-out infinite;display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:15px;letter-spacing:.2em;color:#5980a6">鍵</span>
+        <span style="position:absolute;bottom:-26px;font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,242,243,.45)">Michelin Key</span>
+      </div>
+    </div>
+    <h2 data-reveal="1" data-delay="120" style="opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);margin:26px 0 0;font-size:clamp(38px,5.6vw,78px);line-height:.98;letter-spacing:-.016em;text-transform:uppercase">Michelin Key recognition<br><span style="color:#5980a6">within four months of opening</span></h2>
+    <p data-reveal="1" data-delay="220" style="opacity:0;transform:translateY(20px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);margin:26px auto 0;max-width:70ch;font-size:17px;line-height:1.64;color:rgba(242,242,243,.8);text-wrap:pretty">I directed the full pre-opening and operational launch of a 5-star luxury hotel — facilities, engineering, security and health &amp; safety — and contributed to Michelin Key recognition within four months of opening through attention to detail and service standards. Recognition of that kind is won in the details a guest never has to notice.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:60px;background:rgba(242,242,243,.17);text-align:left">
+      <div data-reveal="1" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 26px">
+        <div style="font-family:var(--font-heading);font-size:44px;line-height:1;color:#5980a6">95%</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.72)">Preventive maintenance schedule compliance, from SOPs written at inception</div>
+      </div>
+      <div data-reveal="1" data-delay="90" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 26px">
+        <div style="font-family:var(--font-heading);font-size:44px;line-height:1;color:#5980a6">G20</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.72)">Facility preparation for a Qatar Government delegation — security, health &amp; safety and daily logistics</div>
+      </div>
+      <div data-reveal="1" data-delay="180" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 26px">
+        <div style="font-family:var(--font-heading);font-size:44px;line-height:1;color:#5980a6">15%</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.72)">Cost reduction through vendor consolidation without touching the standard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="profile" style="position:relative;overflow:hidden;padding:104px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div data-parallax="0.1" style="position:absolute;right:2%;top:6%;pointer-events:none;font-family:'Noto Serif JP',serif;font-weight:300;font-size:clamp(140px,20vw,300px);line-height:1;color:rgba(242,242,243,.035)">人物</div>
+  <div style="position:relative;max-width:1300px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:20px;border-bottom:1px solid rgba(242,242,243,.17)">
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">二 — Profile</div>
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">人物 · How I work</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:64px;margin-top:44px;align-items:start">
+      <div>
+        <h2 data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;font-size:clamp(34px,4.8vw,62px);line-height:1;letter-spacing:-.016em;text-transform:uppercase;max-width:22ch">The building is the experience</h2>
+        <p data-reveal="1" data-delay="90" style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:24px 0 0;max-width:66ch;font-size:16.5px;line-height:1.66;color:rgba(242,242,243,.8);text-wrap:pretty">That line is the thesis of the textbook I am writing, and it is also how I work. A guest does not buy a boiler or a chiller. They buy a shower that runs hot at six in the morning and a room that is quiet at two. Everything I build in a plant room is aimed at that.</p>
+        <p data-reveal="1" data-delay="150" style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:16px 0 0;max-width:66ch;font-size:16.5px;line-height:1.66;color:rgba(242,242,243,.8);text-wrap:pretty">I write everything down. Where I arrive, there is usually no register, no history and no schedule, so the first work is always the same: find out what is actually installed, record what it is doing, and turn that into a plan someone else can run without me in the room. Then I measure it, and I report what the numbers say rather than what would be comfortable.</p>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:38px;background:rgba(242,242,243,.17)">
+          <div data-reveal="1" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:24px 26px">
+            <div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:22px;color:#5980a6">記録</div>
+            <h3 style="margin:12px 0 0;font-size:19px;text-transform:uppercase">Record first</h3>
+            <p style="margin:8px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Asset registers, jobcards, readings and photographs before opinions. If it is not written down it did not happen.</p>
+          </div>
+          <div data-reveal="1" data-delay="70" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:24px 26px">
+            <div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:22px;color:#5980a6">測定</div>
+            <h3 style="margin:12px 0 0;font-size:19px;text-transform:uppercase">Measure, then argue</h3>
+            <p style="margin:8px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Consumption, litres, failure counts, rands. A capital motivation should be arithmetic a financial director can check.</p>
+          </div>
+          <div data-reveal="1" data-delay="140" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:24px 26px">
+            <div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:22px;color:#5980a6">正直</div>
+            <h3 style="margin:12px 0 0;font-size:19px;text-transform:uppercase">Report honestly</h3>
+            <p style="margin:8px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">An audit at 56.92% is a starting line, not an embarrassment. Gaps get named, owned and dated.</p>
+          </div>
+          <div data-reveal="1" data-delay="210" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:24px 26px">
+            <div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:22px;color:#5980a6">錬</div>
+            <h3 style="margin:12px 0 0;font-size:19px;text-transform:uppercase">Train the team</h3>
+            <p style="margin:8px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">SOPs, simulations and competency levels so the standard survives whoever is on shift.</p>
+          </div>
+        </div>
+      </div>
+      <div data-reveal="1" data-delay="120" data-parallax="0.05" class="blueprint" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);position:relative;padding:30px;border-color:rgba(242,242,243,.24)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#5980a6">From Volume One · Preface</div>
+        <p style="margin:18px 0 0;font-family:var(--font-heading);font-size:23px;line-height:1.3;color:#f2f2f3;text-wrap:pretty">"Somewhere tonight, in a hotel you have never visited, a woman is lying awake at 2:14 a.m. listening to a fan coil unit rattle above her bed."</p>
+        <p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:rgba(242,242,243,.7)">Hospitality Engineering — The Art and Science of Protecting Guest Experiences. Four volumes, written alongside the job: the profession and the licence, first principles and the hotel as a system, reliability and the business, leadership and excellence.</p>
+        <div style="margin-top:24px;padding-top:18px;border-top:1px solid rgba(242,242,243,.17);font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.5)">Author · in progress</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="properties" style="padding:100px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="max-width:1300px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:20px;border-bottom:1px solid rgba(242,242,243,.17)">
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">三 — Properties</div>
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">Resort · luxury · extended stay</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:44px;background:rgba(242,242,243,.17)">
+      <div data-reveal="1" data-lift="1" style="opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:30px 26px;border:1px solid transparent">
+        <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;color:#5980a6">110-UNIT RESORT</div>
+        <h3 style="margin:14px 0 0;font-size:27px;line-height:1.08;text-transform:uppercase">Premier Resort Knysna<br>The Moorings</h3>
+        <div style="margin-top:12px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.62)">Premier Hotels &amp; Resorts · Leisure Isle, Knysna</div>
+        <div style="margin-top:20px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.12em;color:rgba(242,242,243,.5)">MAY 2026 — PRESENT</div>
+        <div style="margin-top:14px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.78)">Maintenance Manager. Took over with no handover and rebuilt the department in four months. Guest rooms and villas, three restaurants, four kitchens, conference, pool plant, laundry and cold chain. Team of six across day, night and preventive cover.</div>
+      </div>
+      <div data-reveal="1" data-delay="80" data-lift="1" style="opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:30px 26px;border:1px solid transparent">
+        <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;color:#5980a6">4-STAR EXTENDED STAY</div>
+        <h3 style="margin:14px 0 0;font-size:27px;line-height:1.08;text-transform:uppercase">Hyatt House<br>Sandton</h3>
+        <div style="margin-top:12px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.62)">Johannesburg, South Africa</div>
+        <div style="margin-top:20px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.12em;color:rgba(242,242,243,.5)">OCT 2025 — MAY 2026</div>
+        <div style="margin-top:14px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.78)">Facilities Manager. PM schedules across electrical, HVAC, plumbing and critical systems lifted maintenance efficiency 35%; guest satisfaction up from 70% to a 90% average within the first quarter.</div>
+      </div>
+      <div data-reveal="1" data-delay="160" data-lift="1" style="opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:30px 26px;border:1px solid transparent">
+        <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;color:#5980a6">5-STAR LUXURY</div>
+        <h3 style="margin:14px 0 0;font-size:27px;line-height:1.08;text-transform:uppercase">Park Hyatt<br>Johannesburg</h3>
+        <div style="margin-top:12px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.62)">Johannesburg, South Africa</div>
+        <div style="margin-top:20px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.12em;color:rgba(242,242,243,.5)">MAR — OCT 2025</div>
+        <div style="margin-top:14px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.78)">Pre-opening and operational launch across facilities, engineering, security and health &amp; safety. Michelin Key contribution; 95% PM compliance.</div>
+      </div>
+      <div data-reveal="1" data-delay="240" data-lift="1" style="opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:30px 26px;border:1px solid transparent">
+        <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;color:#5980a6">4-STAR</div>
+        <h3 style="margin:14px 0 0;font-size:27px;line-height:1.08;text-transform:uppercase">Hyatt House<br>Johannesburg</h3>
+        <div style="margin-top:12px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.62)">Johannesburg, South Africa</div>
+        <div style="margin-top:20px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.12em;color:rgba(242,242,243,.5)">FEB 2023 — FEB 2025</div>
+        <div style="margin-top:14px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.78)">Engineering Team Leader. Deputised for the Engineering Manager; 90% PM completion; equipment downtime down 30% and electricity cost down 20%.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:96px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div class="blueprint" style="position:relative;max-width:1300px;margin:0 auto;background:#101214;border-color:rgba(242,242,243,.22)">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <div style="display:flex;justify-content:space-between;padding:14px 22px;border-bottom:1px solid rgba(242,242,243,.17);font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,242,243,.5)"><span>Spec sheet — record of delivery</span><span>Rev. 08 / 2026</span></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr)">
+      <div data-reveal="1" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:34px 22px;border-right:1px solid rgba(242,242,243,.17)">
+        <div style="font-family:var(--font-heading);font-size:50px;line-height:1;color:#5980a6"><span data-count="712" data-prefix="R" data-suffix="k">R0k</span></div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.45;color:rgba(242,242,243,.72)">Hot water plant replacement delivered end to end, commissioned 2026</div>
+      </div>
+      <div data-reveal="1" data-delay="90" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:34px 22px;border-right:1px solid rgba(242,242,243,.17)">
+        <div style="font-family:var(--font-heading);font-size:50px;line-height:1;color:#5980a6"><span data-count="214" data-prefix="R" data-suffix="k">R0k</span></div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.45;color:rgba(242,242,243,.72)">Below the originally quoted alternative, with added plant redundancy</div>
+      </div>
+      <div data-reveal="1" data-delay="180" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:34px 22px;border-right:1px solid rgba(242,242,243,.17)">
+        <div style="font-family:var(--font-heading);font-size:50px;line-height:1;color:#5980a6"><span data-count="110">0</span></div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.45;color:rgba(242,242,243,.72)">Unit resort under management, operating 24/7</div>
+      </div>
+      <div data-reveal="1" data-delay="270" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:34px 22px;border-right:1px solid rgba(242,242,243,.17)">
+        <div style="font-family:var(--font-heading);font-size:50px;line-height:1;color:#5980a6"><span data-count="131">0</span></div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.45;color:rgba(242,242,243,.72)">Risks identified across 81 procedures, mapped to SA statute</div>
+      </div>
+      <div data-reveal="1" data-delay="360" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:34px 22px">
+        <div style="font-family:var(--font-heading);font-size:50px;line-height:1;color:#5980a6"><span data-count="90" data-suffix="%">0%</span></div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.45;color:rgba(242,242,243,.72)">Guest satisfaction average reached at Hyatt House Sandton, up from 70%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="padding:104px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="max-width:1300px;margin:0 auto;display:grid;grid-template-columns:220px 1fr;gap:58px">
+    <div>
+      <div style="position:sticky;top:104px">
+        <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">四 — Selected work</div>
+        <p style="margin:14px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.6)">Premier Resort Knysna – The Moorings. Department taken over May 2026 with no handover and rebuilt from a standing start.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px">
+      <article data-reveal="1" data-lift="1" class="card blueprint" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);grid-column:span 2;padding:32px;gap:0;border-color:rgba(242,242,243,.22)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px">
+          <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5980a6">Capital project · commissioned 2026</span>
+          <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;color:rgba(242,242,243,.45)">R619,403 EX VAT</span>
+        </div>
+        <h3 style="margin:12px 0 0;font-size:36px;line-height:1.06;text-transform:uppercase;letter-spacing:-.01em">Hot water plant replacement</h3>
+        <p style="margin:15px 0 0;font-size:15.5px;line-height:1.62;color:rgba(242,242,243,.78);max-width:72ch;text-wrap:pretty">Guests were waiting two to three minutes for hot water at the outlet. Identified, motivated, specified and delivered the main building hot water plant replacement — 2 × 30 kW modular air-to-water heat pumps and 2 × 2,500 litre heat accumulators — and built the case from first principles: 1,500 litres of existing storage against an estimated 7,500-litre demand for the 50-room main building, eight boiler element failures in twelve months and Legionella exposure from outlet temperatures not reached in time. Contracted at R712,313 including VAT, with Blygold coil protection specified against the coastal salt air.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(242,242,243,.17)">
+          <div><div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">Re-specification</div><p style="margin:9px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.82)">Moved off the quoted R926,085 boiler option to heat pumps and accumulators, rebuilding an existing vessel back into supply.</p></div>
+          <div><div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">Compliance framing</div><p style="margin:9px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.82)">Escalated Legionella and water hygiene exposure as a compliance and trading risk, not a guest comfort issue.</p></div>
+          <div><div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">Live occupancy</div><p style="margin:9px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.82)">Works supervised around a trading hotel with minimal guest disruption, then handed into structured planned maintenance.</p></div>
+        </div>
+      </article>
+      <article data-reveal="1" data-delay="90" data-lift="1" class="card blueprint" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:30px;gap:0;border-color:rgba(242,242,243,.22)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5980a6">Department rebuild</span>
+        <h3 style="margin:12px 0 0;font-size:26px;line-height:1.1;text-transform:uppercase">From zero documentation</h3>
+        <p style="margin:13px 0 0;font-size:14.5px;line-height:1.6;color:rgba(242,242,243,.78)">No jobcard history, no asset register, no preventive maintenance schedule, no contractor file. The entire management framework rebuilt within four months — a 72-procedure engineering SOP manual, a seven-form daily maintenance pack, a daily operating rhythm and room release certificates for returning out-of-order rooms to sale.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:20px"><span class="tag" style="background:rgba(89,128,166,.22);color:#f2f2f3">194 job records recovered</span><span class="tag" style="background:rgba(89,128,166,.22);color:#f2f2f3">119 AC units tracked</span><span class="tag" style="background:rgba(89,128,166,.22);color:#f2f2f3">147-line audit workbook</span></div>
+      </article>
+      <article data-reveal="1" data-delay="180" data-lift="1" class="card blueprint" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:30px;gap:0;border-color:rgba(242,242,243,.22)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5980a6">Safety &amp; statutory</span>
+        <h3 style="margin:12px 0 0;font-size:26px;line-height:1.1;text-transform:uppercase">Risk index &amp; first SHE committee</h3>
+        <p style="margin:13px 0 0;font-size:14.5px;line-height:1.6;color:rgba(242,242,243,.78)">Property-wide HIRA workbook and a Risk Management Index built over four revision cycles to 81 procedures and 131 risks under the OHS Act, NEMA, COIDA and POPIA. Established the property's first-ever SHE committee and closed out an external HSE audit off a 56.92% baseline into a prioritised action plan with owners and deadlines.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:20px"><span class="tag tag-outline" style="border-color:#5980a6;color:#f2f2f3">HIRA</span><span class="tag tag-outline" style="border-color:#5980a6;color:#f2f2f3">SHE constitution</span><span class="tag tag-outline" style="border-color:#5980a6;color:#f2f2f3">Audit close-out</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="padding:104px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="max-width:1300px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:20px;border-bottom:1px solid rgba(242,242,243,.17)">
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">五 — Project register</div>
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">Delivered · in progress</div>
+    </div>
+    <div style="margin-top:30px">
+      <div data-reveal="1" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">01</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Tuscano — Italian restaurant</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Renovated in my second month at Premier Resort Knysna and reopened to guests, with the engineering scope run around a trading property.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Reopened</span>
+      </div>
+      <div data-reveal="1" data-delay="60" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">02</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Sunset and Ash — Asian fusion restaurant</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Renovated and reopened as an Asian fusion restaurant, covering kitchen services, extraction and front-of-house plant readiness.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Reopened</span>
+      </div>
+      <div data-reveal="1" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">03</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Interior refurbishment programme</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Scope of works documentation from architectural and interior designer drawing sets across villa types, issued revision-controlled for tender.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">In progress</span>
+      </div>
+      <div data-reveal="1" data-delay="60" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">04</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Main water pipe infrastructure report</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Root cause analysis of systemic copper corrosion in a coastal environment, room downtime exposure quantified, two costed remediation routes including a third-floor ring main.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Reported</span>
+      </div>
+      <div data-reveal="1" data-delay="120" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">05</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Sewer line replacement scoping</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Major failures from root intrusion and physical pipe damage across guest and Kids Club lines, diagnosed from jetting and camera survey through to replacement scope.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Delivered</span>
+      </div>
+      <div data-reveal="1" data-delay="180" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">06</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Water conservation — 110 rooms</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Aerator installation tracked across every room with consumption verification, supporting the property's move towards water independence via borehole and filtration.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Delivered</span>
+      </div>
+      <div data-reveal="1" data-delay="240" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">07</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Air conditioning SLA restructure</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">119 units across seven blocks tracked as the basis for negotiation — a structured annual plan covering 148 wall-mounted units at R137,640 per annum recommended against a per-unit model projecting roughly R296,000.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Recommended</span>
+      </div>
+      <div data-reveal="1" data-delay="300" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">08</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Kitchen priority index — four kitchens</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Job tracker with a weighted Dynamic Priority Index scoring safety, food safety, service impact, asset value and age to sequence work objectively.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Live</span>
+      </div>
+      <div data-reveal="1" data-delay="360" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">09</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Utilities analytics workbook</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Rebuilt with full data integrity correction, OLS regression trending, CUSUM deviation columns and municipal bill reconciliation to expose billing errors and consumption drift.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Live</span>
+      </div>
+      <div data-reveal="1" data-delay="420" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">10</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Environmental management plan</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Structured around UNEP guidance, the Glasgow Declaration and the UN Sustainable Development Goals, supporting solar and borehole projects toward energy and water independence.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Delivered</span>
+      </div>
+      <div data-reveal="1" data-delay="480" data-lift="1" style="opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:56px 1.1fr 1.5fr 150px;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#5980a6">11</span>
+        <h3 style="margin:0;font-size:23px;line-height:1.14;text-transform:uppercase">Interactive plant training simulation</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,243,.72)">Written and delivered so the team could learn the new heat pump and accumulator system — sequencing, setpoints, fault symptoms and safe isolation — before touching live plant.</p>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">In use</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vision" style="position:relative;overflow:hidden;padding:104px 40px;background:#1d2d3d;color:#f2f2f3;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(to right, rgba(242,242,243,.09) 0 1px, transparent 1px 96px);mask-image:linear-gradient(to bottom, transparent, rgba(0,0,0,.9))"></div>
+  <div style="position:relative;max-width:1300px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:22px;border-bottom:1px solid rgba(242,242,243,.22)">
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,242,243,.6)">六 — Method</div>
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.6)">型 · The department I am building</div>
+    </div>
+    <h2 data-reveal="1" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:38px 0 0;font-size:clamp(40px,6.4vw,92px);line-height:.94;letter-spacing:-.018em;text-transform:uppercase;max-width:20ch">How I run a department</h2>
+    <p data-reveal="1" data-delay="120" style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:26px 0 0;max-width:74ch;font-size:17px;line-height:1.62;color:rgba(242,242,243,.84);text-wrap:pretty">This is not a wish list. It is the shape I work towards from the first week: a three-team structure so the property is covered day, night and preventively, planned work outweighing reactive work, competency levels a technician can be measured against, and training written in-house so the standard is taught rather than assumed. The vision document for The Moorings to December 2027 is that method, costed.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:56px;background:rgba(242,242,243,.22)">
+      <div data-reveal="1" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#1d2d3d;padding:30px 26px">
+        <div style="font-family:var(--font-heading);font-size:52px;line-height:1">6 → 14–17</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.74)">Three teams — day, night and preventive — sized to the property, not to habit</div>
+      </div>
+      <div data-reveal="1" data-delay="90" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#1d2d3d;padding:30px 26px">
+        <div style="font-family:var(--font-heading);font-size:52px;line-height:1">70 / 30</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.74)">Planned work over reactive, measured every month against jobcard flow</div>
+      </div>
+      <div data-reveal="1" data-delay="180" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#1d2d3d;padding:30px 26px">
+        <div style="font-family:var(--font-heading);font-size:52px;line-height:1">4</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.74)">Competency levels, each with defined sign-off, so progress is visible</div>
+      </div>
+      <div data-reveal="1" data-delay="270" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#1d2d3d;padding:30px 26px">
+        <div style="font-family:var(--font-heading);font-size:52px;line-height:1">Academy</div>
+        <div style="margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.74)">Training written in-house — an eight-school curriculum, guest-first sessions and plant simulations, not hearsay</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="library" style="position:relative;overflow:hidden;padding:104px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div data-parallax="0.09" style="position:absolute;left:1%;bottom:4%;pointer-events:none;font-family:'Noto Serif JP',serif;font-weight:300;font-size:clamp(130px,18vw,270px);line-height:1;color:rgba(242,242,243,.032)">記録</div>
+  <div style="position:relative;max-width:1300px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:20px;border-bottom:1px solid rgba(242,242,243,.17)">
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">七 — Working library</div>
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)">記録 · Documents I built and run</div>
+    </div>
+    <p data-reveal="1" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);margin:26px 0 34px;max-width:74ch;font-size:16px;line-height:1.62;color:rgba(242,242,243,.76);text-wrap:pretty">Every one of these is a live document rather than a portfolio piece. They are how the department is actually run — and they are the part of the work I would bring with me.</p>
+    <div style="border-top:1px solid rgba(242,242,243,.17)">
+      <div data-reveal="1" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L01</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Hospitality Engineering — Volume One &amp; Two</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">The profession and the licence; first principles and the hotel as a system. Written as the foundational text of a trade that mostly gets taught by accident.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Textbook · in progress</span>
+      </div>
+
+      <div data-reveal="1" data-delay="50" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L02</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Engineering SOP Manual</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">The department\u2019s operating standard, from plant isolation to room release, written so a technician can follow it at three in the morning.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Manual · 72 procedures</span>
+      </div>
+
+      <div data-reveal="1" data-delay="100" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L03</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Hospitality Engineering Brand Standards</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">What the engineering department owes the guest, expressed as measurable standards rather than intentions.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Standards</span>
+      </div>
+
+      <div data-reveal="1" data-delay="150" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L04</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Property Risk Assessment</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">81 procedures and 131 risks scored and mapped to the OHS Act, NEMA, COIDA and POPIA, over four revision cycles.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Workbook · HIRA</span>
+      </div>
+
+      <div data-reveal="1" data-delay="200" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L05</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Utility Tracking</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">Daily and monthly consumption with baselines, anomaly flags, bill reconciliation and regression trending, built to run for years rather than a quarter.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Workbook · analytics</span>
+      </div>
+
+      <div data-reveal="1" data-delay="250" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L06</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Maintenance Year Planner FY2026-27</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">The full financial year of planned work laid out against the property calendar, so plant work lands outside peak occupancy.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Planner</span>
+      </div>
+
+      <div data-reveal="1" data-delay="300" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L07</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">PM Schedule &amp; Action Plan · Aug — Nov 2026</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">Preventive maintenance sequenced with the audit action plan, owners and dates against every line.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Schedule</span>
+      </div>
+
+      <div data-reveal="1" data-delay="350" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L08</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Kitchen Job Tracker</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">Weighted Dynamic Priority Index over safety, food safety, service impact, asset value and age, so sequencing is defensible.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Tracker · four kitchens</span>
+      </div>
+
+      <div data-reveal="1" data-delay="400" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L09</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Monthly Maintenance Report</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">What was completed, what failed, what it cost and what it means — the monthly account given to management.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Report</span>
+      </div>
+
+      <div data-reveal="1" data-delay="450" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L10</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Tracking Sheet F26</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">Month-by-month operational record for the financial year, with the property profile that anchors it.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Workbook · property profile</span>
+      </div>
+
+      <div data-reveal="1" data-delay="500" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L11</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Hot Water Plant Simulation</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">An interactive model of the new heat pump and accumulator plant — sequencing, setpoints, fault symptoms and safe isolation — so the team learns before touching live plant.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Interactive training</span>
+      </div>
+
+      <div data-reveal="1" data-delay="550" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L12</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">The Moorings Engineering Department 2027</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">The department shaped and costed to December 2027, presented to executives.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Vision document</span>
+      </div>
+
+      <div data-reveal="1" data-delay="600" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L13</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">The Hotel Engineering Academy Textbook</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">The complete curriculum for the department: eight schools and 58 courses across four levels — Foundation, Technician, Engineer, Leader — from guest-first hospitality and safety licensing through to reliability, business cases and leadership. Competence assessed under observation, not attendance.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Curriculum · 8 schools</span>
+      </div>
+
+      <div data-reveal="1" data-delay="650" data-lift="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);display:grid;grid-template-columns:52px 1fr 150px;gap:22px;align-items:baseline;padding:18px 6px;border-bottom:1px solid rgba(242,242,243,.14)">
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5980a6">L14</span>
+        <div><h3 style="margin:0;font-size:19px;line-height:1.16;text-transform:uppercase">Guest-First Engineering Training</h3><p style="margin:7px 0 0;font-size:13.5px;line-height:1.5;color:rgba(242,242,243,.68)">A facilitated session for every technician and shift lead, built on one rule: fixed is not finished. Seven guest-first standards, a five-step follow-up process (fix, test, tell, check back, log), read-aloud scripts and a role-play workshop with sign-off.</p></div>
+        <span style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5)">Training session · 1h40</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="discipline" style="position:relative;overflow:hidden;padding:130px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="position:relative;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.25fr;gap:80px;align-items:center">
+    <div data-reveal="1" data-parallax="0.16" style="opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;gap:26px;align-items:center">
+      <div style="width:1px;height:190px;background:linear-gradient(to bottom, transparent, rgba(89,128,166,.9), transparent)"></div>
+      <div style="writing-mode:vertical-rl;font-family:'Noto Serif JP',serif;font-weight:300;font-size:clamp(38px,4.6vw,60px);letter-spacing:.24em;color:rgba(242,242,243,.9)">空手道</div>
+    </div>
+    <div>
+      <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">八 — Discipline</div>
+      <h2 data-reveal="1" data-delay="80" style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:22px 0 0;font-size:clamp(34px,4.6vw,58px);line-height:1;letter-spacing:-.014em;text-transform:uppercase">Brown belt, 1st Kyu</h2>
+      <p data-reveal="1" data-delay="160" style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:22px 0 0;font-size:16.5px;line-height:1.66;color:rgba(242,242,243,.78);max-width:56ch;text-wrap:pretty">Silver Medalist at the WUKF Karate African &amp; National Championships, 2022. Karate is where the working method came from: repeat the basics until they hold under pressure, record what happened honestly, and treat standards as something you keep rather than something you claim.</p>
+      <div style="display:flex;gap:34px;margin-top:34px;padding-top:22px;border-top:1px solid rgba(242,242,243,.17)">
+        <div><div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:20px;color:#5980a6">整</div><div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.5)">Order</div></div>
+        <div><div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:20px;color:#5980a6">礼</div><div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.5)">Respect for the guest</div></div>
+        <div><div style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:20px;color:#5980a6">錬</div><div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.5)">Repetition</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:100px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="max-width:1300px;margin:0 auto">
+    <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">九 — Capability</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:30px;background:rgba(242,242,243,.17)">
+      <div data-reveal="1" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 30px">
+        <h3 style="margin:0;font-size:21px;text-transform:uppercase;letter-spacing:.01em">Plant &amp; building services</h3>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:rgba(242,242,243,.74)">Boilers, heat pumps, accumulators and hot water storage · Legionella and water hygiene control · HVAC and refrigeration · electrical reticulation and DB boards · generators and solar PPA · borehole, filtration and pump systems · pool plant and dosing · drainage, sewer lines and grease traps · commercial kitchen equipment and extraction · fire and life safety systems.</p>
+      </div>
+      <div data-reveal="1" data-delay="80" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 30px">
+        <h3 style="margin:0;font-size:21px;text-transform:uppercase;letter-spacing:.01em">Maintenance &amp; asset management</h3>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:rgba(242,242,243,.74)">Preventive and predictive programme design · asset registers, asset passports and lifecycle planning · Dynamic Priority Index work prioritisation · jobcard and work order systems · room release certification · condition monitoring · stock control and spares management.</p>
+      </div>
+      <div data-reveal="1" data-delay="160" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 30px">
+        <h3 style="margin:0;font-size:21px;text-transform:uppercase;letter-spacing:.01em">Compliance &amp; documentation</h3>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:rgba(242,242,243,.74)">OHS Act, NEMA, COIDA and POPIA · HIRA and risk assessment · SHE committee governance · external HSE audit close-out · fire and life safety audits · safety files and contractor packs · SOP authoring · incident reporting and investigation · environmental management planning.</p>
+      </div>
+      <div data-reveal="1" data-delay="240" style="opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#0b0c0d;padding:28px 30px">
+        <h3 style="margin:0;font-size:21px;text-transform:uppercase;letter-spacing:.01em">Commercial, analytical &amp; systems</h3>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:rgba(242,242,243,.74)">Capital motivation and business case writing · quotation adjudication · SLA structuring and negotiation · budget control and variance analysis · OLS regression and CUSUM analysis · scope of works and tender documentation. Advanced Excel including VBA · Power BI, Tableau · Python, SQL · AutoCAD and Inventor · Assa Abloy Vostio, Salto, Milestone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:88px 40px;border-bottom:1px solid rgba(242,242,243,.14)">
+  <div style="max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:36px">
+    <div data-reveal="1" class="blueprint" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);position:relative;padding:28px;border-color:rgba(242,242,243,.22)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#5980a6">Education</div>
+      <div style="margin-top:16px;display:grid;gap:12px;font-size:14px;line-height:1.5;color:rgba(242,242,243,.82)">
+        <div>Bachelor of Business Administration (in progress) — University of the People, 2025–2029, focused on hospitality management and operations</div>
+        <div style="color:rgba(242,242,243,.6)">Google Project Management Certification, 2024</div>
+        <div style="color:rgba(242,242,243,.6)">First Aid Level 1 &amp; SHE Representative — Clinical Dynamics, 2023</div>
+      </div>
+    </div>
+    <div data-reveal="1" data-delay="90" class="blueprint" style="opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);position:relative;padding:28px;border-color:rgba(242,242,243,.22)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#5980a6">Authorship</div>
+      <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:rgba(242,242,243,.82)">A professional hospitality engineering body of work — a multi-volume technical textbook, an eight-school Engineering Academy curriculum, a guest-first team training session, a 72-procedure SOP manual, Brand Standards, and interactive plant training simulations used for team development.</p>
+    </div>
+      </div>
+</section>
+
+<section id="contact" style="position:relative;overflow:hidden;padding:114px 40px 84px">
+  <div data-parallax="-0.1" data-parallax-base="translateX(-50%)" style="position:absolute;bottom:-30%;left:50%;width:60vw;height:60vw;transform:translateX(-50%);pointer-events:none;background:radial-gradient(circle, rgba(89,128,166,.16), transparent 64%)"></div>
+  <div style="position:relative;max-width:1300px;margin:0 auto">
+    <div style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6">十 — Contact</div>
+    <div data-reveal="1" style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:26px;margin-top:38px">
+      <span class="blueprint" style="position:relative;display:flex;align-items:center;justify-content:center;width:96px;height:96px;flex-shrink:0;border-color:rgba(242,242,243,.34);font-family:var(--font-heading);font-size:44px;letter-spacing:.04em;color:#f2f2f3"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>IC</span>
+      <div style="display:grid;gap:8px">
+        <span style="font-family:var(--font-heading);font-size:24px;letter-spacing:.05em;text-transform:uppercase">Ivan Cronje</span>
+        <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,242,243,.55)">Hospitality engineering · Plant, compliance, guest experience</span>
+      </div>
+    </div>
+    <h2 data-reveal="1" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:26px 0 0;font-size:clamp(44px,8.2vw,128px);line-height:.9;letter-spacing:-.02em;text-transform:uppercase">Standards kept,<br><span style="color:#5980a6">not claimed.</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:56px;padding-top:26px;border-top:1px solid rgba(242,242,243,.17)">
+      <div><div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,242,243,.5)">Phone</div><a href="tel:+27678476280" style="display:inline-block;margin-top:8px;font-family:var(--font-heading);font-size:27px;letter-spacing:.01em">(+27) 67 847 6280</a></div>
+      <div><div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,242,243,.5)">Email</div><a href="mailto:ivancronje86@gmail.com" style="display:inline-block;margin-top:8px;font-family:var(--font-heading);font-size:27px;letter-spacing:.01em">ivancronje86@gmail.com</a></div>
+      <div><div style="font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,242,243,.5)">Based in</div><div style="margin-top:8px;font-family:var(--font-heading);font-size:27px;letter-spacing:.01em">Knysna, Western Cape</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:64px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.45)"><span style="display:flex;align-items:center;gap:12px"><span class="blueprint" style="position:relative;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-color:rgba(242,242,243,.34);font-family:var(--font-heading);font-size:10px;color:#f2f2f3"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>IC</span>Ivan Cronje — Hospitality Engineering Leader</span><span style="font-family:'Noto Serif JP',serif;letter-spacing:.3em;color:#5980a6">整備・規律・記録</span><span>References available on request</span></div>
+  </div>
+</section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bold&quot;,&quot;subtle&quot;],&quot;default&quot;:&quot;bold&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;scrollStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;stack&quot;,&quot;flow&quot;],&quot;default&quot;:&quot;stack&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = (this.el && this.el.querySelectorAll) ? this.el : document;
+    const q = (s) => Array.from(root.querySelectorAll(s));
+    const showAll = () => q("[data-reveal]").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
+    if (!("IntersectionObserver" in window)) { showAll(); return; }
+    setTimeout(() => { if (q('[data-reveal]').some(el => getComputedStyle(el).opacity === "0" && el.getBoundingClientRect().top < window.innerHeight)) showAll(); }, 2600);
+    const motion = this.props.motion ?? "bold";
+
+    setTimeout(() => q("[data-hero-line]").forEach(el => { el.style.transform = "translateY(0)"; }), 90);
+
+    const reveal = q("[data-reveal]");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        setTimeout(() => { el.style.opacity = "1"; el.style.transform = "none"; }, Number(el.dataset.delay || 0));
+        io.unobserve(el);
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+    reveal.forEach(el => io.observe(el));
+
+    const fmt = (el, v) => (el.dataset.prefix || "") + Math.round(v).toLocaleString("en-ZA") + (el.dataset.suffix || "");
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = Number(el.dataset.count), dur = 1500, t0 = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - t0) / dur);
+          el.textContent = fmt(el, target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    q("[data-count]").forEach(el => cio.observe(el));
+
+    q("[data-lift]").forEach(el => {
+      const base = el.style.transition;
+      el.addEventListener("mouseenter", () => {
+        if (el.style.opacity !== "1") return;
+        el.style.transition = "transform .35s cubic-bezier(.16,1,.3,1), border-color .35s ease, background-color .35s ease";
+        el.style.transform = "translateY(-4px)";
+        el.style.borderColor = "#5980a6";
+        el.style.backgroundColor = "rgba(89,128,166,.06)";
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = "none";
+        el.style.borderColor = "";
+        el.style.backgroundColor = "";
+        el.style.transition = base;
+      });
+    });
+
+    // stacked scroll: each section pins and the next one slides over it, the one behind
+    // dropping back — scale, dim and settle
+    const stack = (this.props.scrollStyle ?? "stack") === "stack";
+    const secs = q("section");
+    if (stack) {
+      secs.forEach((sec, i) => {
+        sec.style.position = "relative";
+        sec.style.zIndex = String(10 + i);
+        sec.style.transformOrigin = "50% 100%";
+        sec.style.backfaceVisibility = "hidden";
+        if (!sec.style.background && !sec.style.backgroundColor) sec.style.background = "#0b0c0d";
+      });
+    }
+    this._stackFrame = () => {
+      if (!stack) return;
+      const vh = window.innerHeight;
+      const host = secs[0] && secs[0].parentElement;
+      const hostTop = host ? host.getBoundingClientRect().top + window.scrollY : 0;
+      secs.forEach((sec, i) => {
+        // geometry read from layout, never from the transformed box
+        const top = hostTop + sec.offsetTop - window.scrollY;
+        const next = secs[i + 1];
+        const nextTop = next ? hostTop + next.offsetTop - window.scrollY : Infinity;
+        // a section only falls behind once the next one is actually covering it
+        const cover = nextTop >= vh ? 0 : Math.max(0, Math.min(1, 1 - nextTop / vh));
+        if (cover <= 0 || top + sec.offsetHeight < -vh) {
+          if (sec.dataset.behind === "1") {
+            sec.style.transform = "";
+            sec.style.opacity = "1";
+            sec.style.filter = "";
+            sec.style.willChange = "auto";
+            delete sec.dataset.behind;
+            delete sec.dataset.q;
+          }
+          return;
+        }
+        if (sec.dataset.behind !== "1") { sec.dataset.behind = "1"; sec.style.willChange = "transform, opacity"; }
+        const e = cover * cover * (3 - 2 * cover);
+        const q = Math.round(e * 100) / 100; // quantised: skip redundant style writes
+        if (sec.dataset.q === String(q)) return;
+        sec.dataset.q = String(q);
+        sec.style.transform = `perspective(1500px) translate3d(0,${(-q * 26).toFixed(1)}px,${(-q * 190).toFixed(1)}px) rotateX(${(q * 4.5).toFixed(2)}deg)`;
+        sec.style.opacity = String((1 - q * 0.28).toFixed(3));
+      });
+    };
+
+    // sword cut: a blade of light draws across each section's top edge as it enters
+    const blades = [];
+    q("section").forEach(sec => {
+      if (getComputedStyle(sec).position === "static") sec.style.position = "relative";
+      const wrap = document.createElement("div");
+      wrap.style.cssText = "position:absolute;top:0;left:0;right:0;height:1px;pointer-events:none;overflow:visible;z-index:5";
+      const blade = document.createElement("div");
+      blade.style.cssText = "position:absolute;top:0;left:0;height:1px;width:100%;transform:scaleX(0);transform-origin:left center;background:linear-gradient(90deg, rgba(89,128,166,0), rgba(89,128,166,.55) 60%, rgba(242,242,243,.95));transition:transform 1.05s cubic-bezier(.62,0,.24,1)";
+      const tip = document.createElement("div");
+      tip.style.cssText = "position:absolute;top:-2px;left:0;width:5px;height:5px;background:#f2f2f3;box-shadow:0 0 14px 3px rgba(89,128,166,.95);opacity:0;transform:translateX(0);transition:transform 1.05s cubic-bezier(.62,0,.24,1),opacity .5s ease .75s";
+      wrap.appendChild(blade); wrap.appendChild(tip); sec.appendChild(wrap);
+      blades.push({ sec, blade, tip });
+    });
+    const bio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const b = blades.find(x => x.sec === e.target);
+        if (!b) return;
+        b.tip.style.opacity = "1";
+        requestAnimationFrame(() => {
+          b.blade.style.transform = "scaleX(1)";
+          b.tip.style.transform = `translateX(${b.sec.clientWidth}px)`;
+        });
+        bio.unobserve(e.target);
+      });
+    }, { threshold: 0.03 });
+    blades.forEach(b => bio.observe(b.sec));
+
+    const navLinks = q("[data-navlink]");
+    this._fitNav = () => {
+      const w = window.innerWidth;
+      navLinks.forEach((el, i) => { el.style.display = w < 1100 && i < 2 ? "none" : (w < 900 ? "none" : ""); });
+    };
+    window.addEventListener("resize", this._fitNav, { passive: true });
+    this._fitNav();
+
+    const bar = root.querySelector("[data-progress]");
+    const par = q("[data-parallax]").map(el => ({
+      el,
+      rate: Number(el.dataset.parallax),
+      base: el.dataset.parallaxBase || "",
+      reveal: el.hasAttribute("data-reveal")
+    }));
+    let ticking = false;
+    const frame = () => {
+      ticking = false;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar) bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+      this._stackFrame();
+      if (motion === "subtle") return;
+      const vh = window.innerHeight;
+      par.forEach(p => {
+        const r = p.el.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 2) return;
+        if (p.reveal && p.el.style.opacity !== "1") return;
+        const off = (r.top + r.height / 2 - vh / 2) * -p.rate;
+        p.el.style.transform = `${p.base} translate3d(0,${off.toFixed(1)}px,0)`;
+      });
+    };
+    this._onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    window.addEventListener("resize", this._onScroll, { passive: true });
+    frame();
+  }
+  componentWillUnmount() {
+    if (this._onScroll) {
+      window.removeEventListener("scroll", this._onScroll);
+      window.removeEventListener("resize", this._onScroll);
+    }
+    if (this._fitNav) window.removeEventListener("resize", this._fitNav);
+
+  }
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>
