@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hot Water Plant Simulation — 50 Rooms | The Moorings</title>
+<style>
+:root{
+  --ink:#0D191E;
+  --panel:#132A31;
+  --panel2:#0F2228;
+  --line:#22434D;
+  --line2:#2E5A66;
+  --steam:#DEE8E6;
+  --steam-dim:#8FA6A9;
+  --copper:#C4703A;
+  --copper-lit:#E8A05C;
+  --brass:#D9A441;
+  --chill:#69B0C2;
+  --moss:#7BA98B;
+  --alarm:#C9503F;
+  --disp:"Bahnschrift","Franklin Gothic Medium","Arial Narrow",sans-serif;
+  --body:"Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"Consolas","SF Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink);
+  color:var(--steam);
+  font-family:var(--body);
+  font-size:14px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--brass)}
+
+/* ---------- header ---------- */
+.masthead{
+  border-bottom:1px solid var(--line);
+  padding:22px 26px 18px;
+  display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;
+  background:linear-gradient(180deg,#11242A,#0D191E);
+}
+.masthead h1{
+  font-family:var(--disp);
+  font-weight:600;
+  font-size:clamp(22px,3.4vw,34px);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin:0;
+  line-height:1;
+}
+.masthead h1 em{font-style:normal;color:var(--copper-lit)}
+.sub{color:var(--steam-dim);font-size:12.5px;margin-top:7px;max-width:62ch}
+.tagplate{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  color:var(--steam-dim);text-align:right;line-height:1.85;
+  border-left:1px solid var(--line);padding-left:16px;
+}
+.tagplate b{color:var(--steam);font-weight:600}
+
+/* ---------- layout ---------- */
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);gap:0;align-items:start}
+@media(max-width:900px){.shell{grid-template-columns:1fr}}
+
+/* ---------- control rail ---------- */
+.rail{
+  border-right:1px solid var(--line);
+  padding:18px 18px 60px;
+  background:var(--panel2);
+  position:sticky;top:0;max-height:100vh;overflow-y:auto;
+}
+@media(max-width:900px){.rail{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line)}}
+.rail::-webkit-scrollbar{width:8px}
+.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+
+.grp{margin-bottom:22px}
+.grp>h3{
+  font-family:var(--disp);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brass);margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);
+  font-weight:600;
+}
+.fld{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.fld label{font-size:12px;color:var(--steam-dim);flex:1}
+.fld input[type=number],.fld select{
+  width:78px;background:#0A171B;border:1px solid var(--line2);color:var(--steam);
+  font-family:var(--mono);font-size:12.5px;padding:4px 6px;border-radius:2px;text-align:right;
+}
+.fld select{width:112px;text-align:left;font-family:var(--body);font-size:11.5px}
+.fld input:focus,.fld select:focus,button:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
+
+.chk{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:12px;color:var(--steam-dim);cursor:pointer}
+.chk input{accent-color:var(--copper);width:14px;height:14px}
+.chk span.tag{font-family:var(--mono);font-size:10px;color:var(--line2);margin-left:auto}
+
+.presets{display:flex;gap:5px;margin:2px 0 12px}
+.presets button{
+  flex:1;background:#0A171B;border:1px solid var(--line2);color:var(--steam-dim);
+  font-family:var(--mono);font-size:11px;padding:5px 2px;cursor:pointer;border-radius:2px;
+}
+.presets button:hover{border-color:var(--copper);color:var(--copper-lit)}
+.presets button.on{background:var(--copper);border-color:var(--copper);color:#0D191E;font-weight:700}
+
+.act{
+  width:100%;background:var(--copper);border:0;color:#0D191E;font-family:var(--disp);
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  padding:10px;cursor:pointer;border-radius:2px;margin-top:4px;
+}
+.act:hover{background:var(--copper-lit)}
+.act.ghost{background:transparent;border:1px solid var(--line2);color:var(--steam-dim);margin-top:8px}
+.act.ghost:hover{border-color:var(--brass);color:var(--brass)}
+
+/* ---------- main ---------- */
+.main{padding:20px 26px 70px;min-width:0}
+.blk{margin-bottom:30px}
+.blk>h2{
+  font-family:var(--disp);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--steam-dim);font-weight:600;margin:0 0 12px;
+  display:flex;align-items:center;gap:12px;
+}
+.blk>h2::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- schematic ---------- */
+.schem{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:6px 6px 0}
+.schem svg{display:block;width:100%;height:auto}
+
+/* ---------- scrubber ---------- */
+.scrub{
+  display:flex;align-items:center;gap:14px;margin-top:12px;
+  background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:10px 14px;
+}
+.scrub input[type=range]{flex:1;accent-color:var(--copper);height:4px}
+.clock{font-family:var(--mono);font-size:20px;color:var(--copper-lit);letter-spacing:.04em;min-width:70px}
+.playbtn{
+  background:#0A171B;border:1px solid var(--line2);color:var(--steam);width:38px;height:34px;
+  border-radius:2px;cursor:pointer;font-size:14px;
+}
+.playbtn:hover{border-color:var(--copper)}
+
+/* ---------- kpi ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:var(--panel);padding:12px 14px}
+.kpi .k{font-family:var(--disp);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--steam-dim)}
+.kpi .v{font-family:var(--mono);font-size:24px;line-height:1.25;margin-top:3px;color:var(--steam)}
+.kpi .v small{font-size:12px;color:var(--steam-dim);margin-left:3px}
+.kpi .n{font-size:11px;color:var(--steam-dim);margin-top:1px}
+.kpi.good .v{color:var(--moss)}
+.kpi.warn .v{color:var(--brass)}
+.kpi.bad .v{color:var(--alarm)}
+
+/* ---------- charts ---------- */
+.chartbox{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:12px 14px 6px;margin-bottom:12px}
+.chartbox canvas{display:block;width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:11.5px;color:var(--steam-dim);margin:8px 0 6px}
+.legend i{display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;border-radius:2px}
+
+/* ---------- verdict ---------- */
+.verdict{border:1px solid var(--line);border-left:3px solid var(--copper);background:var(--panel);padding:16px 18px;border-radius:3px}
+.verdict h4{font-family:var(--disp);font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--copper-lit)}
+.verdict ul{margin:0;padding-left:18px}
+.verdict li{margin-bottom:6px;font-size:13px}
+.verdict li b{color:var(--brass)}
+.verdict.ok{border-left-color:var(--moss)}
+.verdict.ok h4{color:var(--moss)}
+.verdict.bad{border-left-color:var(--alarm)}
+.verdict.bad h4{color:var(--alarm)}
+
+/* ---------- sweep table ---------- */
+table.sweep{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+table.sweep th{
+  font-family:var(--disp);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--steam-dim);text-align:right;padding:6px 10px;border-bottom:1px solid var(--line2);font-weight:600;
+}
+table.sweep th:first-child,table.sweep td:first-child{text-align:left}
+table.sweep td{padding:5px 10px;border-bottom:1px solid var(--line);text-align:right}
+table.sweep tr.fail td{color:var(--alarm)}
+table.sweep tr.edge td{color:var(--brass)}
+table.sweep tr.pass td{color:var(--moss)}
+
+.notes{font-size:12px;color:var(--steam-dim);columns:2;column-gap:34px}
+@media(max-width:760px){.notes{columns:1}}
+.notes p{margin:0 0 9px;break-inside:avoid}
+.notes b{color:var(--steam);font-weight:600}
+.hidden{display:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:44px;background:#0b0c0d;border-bottom:1px solid rgba(242,242,243,.18);font:10.5px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase"><span style="color:#f2f2f3">IVAN CRONJE</span><a href="index.html#library" style="color:#8fb3d6;text-decoration:none">&larr; Portfolio</a></div>
+
+
+<header class="masthead">
+  <div>
+    <h1>Hot Water Plant <em>— 50 Rooms</em></h1>
+    <div class="sub">Three heat pumps in series into two Thermocube accumulators. Set the conditions on the left, run the day, and see whether the store holds up.</div>
+  </div>
+  <div class="tagplate">
+    2 × <b>LSQ-INN-AWHP-5-07MF</b> · 30 kW · R407c<br>
+    1 × <b>EXISTING UNIT</b> · 22 kW<br>
+    2 × <b>TT-025-4</b> THERMOCUBE · 2500 L
+  </div>
+</header>
+
+<div class="shell">
+
+<aside class="rail">
+
+  <div class="grp">
+    <h3>Plant</h3>
+    <label class="chk"><input type="checkbox" id="u22" checked> 22 kW unit <span class="tag">EXISTING</span></label>
+    <label class="chk"><input type="checkbox" id="u30a" checked> 30 kW unit A <span class="tag">LSQ07MF</span></label>
+    <label class="chk"><input type="checkbox" id="u30b" checked> 30 kW unit B <span class="tag">LSQ07MF</span></label>
+    <div class="fld"><label>Series order</label>
+      <select id="order">
+        <option value="small-first">22 → 30 → 30</option>
+        <option value="small-last">30 → 30 → 22</option>
+        <option value="small-mid">30 → 22 → 30</option>
+      </select></div>
+    <div class="fld"><label>Circulation flow m³/h</label><input type="number" id="flow" value="7" step="0.5" min="2" max="20"></div>
+    <div class="fld"><label>Storage litres</label><input type="number" id="store" value="5000" step="500" min="1000" max="20000"></div>
+    <div class="fld"><label>Setpoint °C</label><input type="number" id="sp" value="58" step="1" min="45" max="65"></div>
+    <div class="fld"><label>Deadband K</label><input type="number" id="db" value="8" step="1" min="2" max="20"></div>
+    <div class="fld"><label>Max leaving °C</label><input type="number" id="maxlwt" value="60" step="1" min="50" max="70"></div>
+  </div>
+
+  <div class="grp">
+    <h3>Demand</h3>
+    <div class="fld"><label>Rooms</label><input type="number" id="rooms" value="50" step="1" min="1" max="200"></div>
+    <div class="fld"><label>Occupancy %</label><input type="number" id="occ" value="85" step="5" min="10" max="100"></div>
+    <div class="fld"><label>Guests per room</label><input type="number" id="gpr" value="1.8" step="0.1" min="1" max="4"></div>
+    <div class="fld"><label>Showers per guest</label><input type="number" id="spg" value="1.15" step="0.05" min="0.5" max="3"></div>
+    <div class="fld"><label>Shower minutes</label><input type="number" id="sdur" value="7" step="0.5" min="2" max="20"></div>
+    <div class="fld"><label>Shower flow L/min</label><input type="number" id="sflow" value="9" step="0.5" min="3" max="20"></div>
+    <div class="presets" id="flowPresets">
+      <button data-f="9">9.0 std</button>
+      <button data-f="7.5">7.5</button>
+      <button data-f="6">6.0 WS-003</button>
+    </div>
+    <div class="fld"><label>Mixed temp at head °C</label><input type="number" id="mix" value="40" step="1" min="35" max="45"></div>
+    <div class="fld"><label>Basins etc. L/room/day</label><input type="number" id="basin" value="12" step="2" min="0" max="60"></div>
+    <div class="fld"><label>Ring main loss kW</label><input type="number" id="ring" value="3" step="0.5" min="0" max="15"></div>
+  </div>
+
+  <div class="grp">
+    <h3>Group departure</h3>
+    <label class="chk"><input type="checkbox" id="burst"> Simulate a synchronised burst</label>
+    <div class="fld"><label>% of rooms</label><input type="number" id="bfrac" value="40" step="5" min="5" max="100"></div>
+    <div class="fld"><label>Starting at</label><input type="number" id="bhour" value="6.5" step="0.5" min="0" max="23"></div>
+    <div class="fld"><label>Over minutes</label><input type="number" id="bwin" value="45" step="5" min="10" max="180"></div>
+  </div>
+
+  <div class="grp">
+    <h3>Conditions</h3>
+    <div class="fld"><label>Ambient air °C</label><input type="number" id="amb" value="14" step="1" min="-5" max="40"></div>
+    <div class="fld"><label>Cold feed °C</label><input type="number" id="cold" value="17" step="1" min="5" max="30"></div>
+    <div class="fld"><label>Plant room °C</label><input type="number" id="proom" value="22" step="1" min="5" max="45"></div>
+    <div class="fld"><label>Tank loss W/K each</label><input type="number" id="ua" value="4" step="0.5" min="0" max="30"></div>
+    <label class="chk"><input type="checkbox" id="tou"> Lock plant out 07–10 &amp; 18–20</label>
+    <div class="fld"><label>Tariff R/kWh</label><input type="number" id="tariff" value="3.20" step="0.05" min="0" max="15"></div>
+    <div class="fld"><label>Random seed</label><input type="number" id="seed" value="7" step="1" min="1" max="9999"></div>
+  </div>
+
+  <button class="act" id="run">Run the day</button>
+  <button class="act ghost" id="reseed">Different guests, same settings</button>
+  <button class="act ghost" id="sweep">Find the room limit</button>
+
+</aside>
+
+<main class="main">
+
+  <section class="blk">
+    <h2>Plant schematic — live</h2>
+    <div class="schem">
+      <svg id="svg" viewBox="0 0 980 300" role="img" aria-label="Live plant schematic showing three heat pumps in series feeding two accumulator tanks"></svg>
+    </div>
+    <div class="scrub">
+      <button class="playbtn" id="play" aria-label="Play the day">▶</button>
+      <span class="clock" id="clock">00:00</span>
+      <input type="range" id="time" min="0" max="2879" value="0" aria-label="Time of day">
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>The day in numbers</h2>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section class="blk">
+    <h2>What the store did</h2>
+    <div class="chartbox">
+      <div class="legend">
+        <span><i style="background:#E8A05C"></i>Tank top</span>
+        <span><i style="background:#69B0C2"></i>Tank bottom</span>
+        <span><i style="background:#7BA98B"></i>Delivered to guest</span>
+        <span><i style="background:#C9503F"></i>Below 40 °C</span>
+        <span><i style="background:#2E5A66"></i>Hot draw L/min</span>
+      </div>
+      <canvas id="c1" height="300"></canvas>
+    </div>
+    <div class="chartbox">
+      <div class="legend">
+        <span><i style="background:#C4703A"></i>Heat delivered kW</span>
+        <span><i style="background:#D9A441"></i>Electrical kW</span>
+        <span><i style="background:#69B0C2"></i>COP</span>
+      </div>
+      <canvas id="c2" height="200"></canvas>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Read-out</h2>
+    <div id="verdict"></div>
+  </section>
+
+  <section class="blk hidden" id="sweepBlk">
+    <h2>Room limit sweep</h2>
+    <div class="chartbox" style="padding:6px 14px 14px">
+      <table class="sweep" id="sweepTbl"></table>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>What this model assumes</h2>
+    <div class="notes">
+      <p><b>Heat pump performance</b> is modelled from first principles, not from a manufacturer data sheet. Capacity is scaled off a 20 °C ambient / 55 °C water rating point, derating roughly 2.2 % per °C of ambient below that and 0.8 % per °C of leaving water temperature above it. COP is a Carnot fraction (0.45) taken between the evaporator and condenser, which lands around 3.2–3.5 at 20 °C ambient and 2.4–2.7 at 8 °C. Replace these with the manufacturer's published performance curves before relying on any output.</p>
+      <p><b>The 22 kW unit</b> is assumed to be the same generation and refrigerant as the new ones. If it is older, R22, or a different make, its real output at 8 °C ambient will be worse than shown here.</p>
+      <p><b>Series piping</b> means one common flow through all three machines. Each stage sees the one before it, so the last machine works at the highest lift and the lowest COP. Total output barely changes when you reorder them — the reason to choose an order is which machine you want carrying the high-lift duty, not efficiency.</p>
+      <p><b>The two Thermocubes</b> are modelled as one 5000 L stratified column of twelve layers, which is how a pair piped in series behaves. Heat pump return is drawn from the bottom, flow is injected at the top, guests draw off the top, cold makes up at the bottom. Layers are held in stable order each step, so the model will not show cold water sitting above hot.</p>
+      <p><b>Guest behaviour</b> is stochastic. Shower start times are sampled from a resort profile weighted to 06:00–09:00 and 18:00–21:00, with durations scattered around your figure. Change the seed for a different set of guests on the same settings — if the plant only passes on one seed, it does not pass.</p>
+      <p><b>The failure feedback loop is real.</b> When the top of the store drops toward 40 °C, guests open the hot tap further to hold temperature, so the hot draw rises just as the store is weakest. That is why these systems fail suddenly rather than gradually.</p>
+      <p><b>Not modelled:</b> defrost cycles in detail, pipework thermal mass, TMV behaviour, pump failure, scale fouling on the condensers, or laundry and kitchen loads. Add kitchen demand through the basins figure if this plant serves it.</p>
+      <p><b>Legionella</b> is flagged on time spent below 50 °C anywhere in the store. It is a flag, not a compliance assessment.</p>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const CP=4.186, RHO=1.0, DT=30, STEPS=2880, NODES=12;
+
+/* ---------- helpers ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+function gauss(rng,m,s){let u=0,v=0;while(!u)u=rng();while(!v)v=rng();return m+s*Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+/* ---------- heat pump physics ---------- */
+const RATE_AMB=20, RATE_LWT=55;
+function ambFactor(amb){
+  let f=1+0.022*(amb-RATE_AMB);
+  if(amb<7) f*=0.90;            // defrost penalty
+  return clamp(f,0.30,1.30);
+}
+function copOf(amb,lwt){
+  const Tc=lwt+5+273.15, Te=amb-7+273.15;
+  if(Tc-Te<6) return 6;
+  return clamp(0.45*Tc/(Tc-Te),1.0,6.5);
+}
+// one machine, closed-form for capacity derate against its own leaving temp
+function stage(kW,Tin,amb,mc,maxLWT){
+  if(kW<=0) return {Q:0,Tout:Tin,P:0};
+  const k=kW*ambFactor(amb);
+  let Q=k*(1-0.008*(Tin-RATE_LWT))/(1+0.008*k/mc);
+  if(Q<0) Q=0;
+  let Tout=Tin+Q/mc;
+  if(Tout>maxLWT){Tout=maxLWT;Q=Math.max(0,(Tout-Tin)*mc);}
+  const P=Q>0?Q/copOf(amb,Tout):0;
+  return {Q,Tout,P};
+}
+
+/* ---------- demand ---------- */
+const HOURW=[0.2,0.1,0.1,0.1,0.3,1.5,5,11,13,9,5,2.5,2,2,2,2.5,3.5,5,7,6.5,5,4,2.5,1.2];
+function buildDemand(p,rng){
+  const dem=new Float64Array(STEPS);           // L/min at mixed temp
+  const occRooms=Math.round(p.rooms*p.occ);
+  const guests=occRooms*p.gpr;
+  const n=Math.max(0,Math.round(guests*p.spg));
+  const tot=HOURW.reduce((a,b)=>a+b,0);
+  const cum=[];let s=0;for(const w of HOURW){s+=w/tot;cum.push(s);}
+  const addEvent=(startS,durS,flow)=>{
+    const a=Math.floor(startS/DT), b=Math.ceil((startS+durS)/DT);
+    for(let i=a;i<b;i++){const j=((i%STEPS)+STEPS)%STEPS;dem[j]+=flow;}
+  };
+  for(let i=0;i<n;i++){
+    const u=rng();let h=0;while(h<23&&cum[h]<u)h++;
+    const start=(h+rng())*3600;
+    const dur=clamp(gauss(rng,p.sdur,p.sdur*0.25),2,25)*60;
+    addEvent(start,dur,p.sflow);
+  }
+  if(p.burst){
+    const bn=Math.max(0,Math.round(p.rooms*p.occ*p.bfrac*p.gpr));
+    for(let i=0;i<bn;i++){
+      const start=p.bhour*3600+rng()*p.bwin*60;
+      const dur=clamp(gauss(rng,p.sdur,p.sdur*0.2),2,25)*60;
+      addEvent(start,dur,p.sflow);
+    }
+  }
+  // basins / cleaning, flatter daytime spread. dem[] is L/min at mixed temp.
+  const basinTotal=p.rooms*p.occ*p.basin;      // L/day at mixed temp
+  const flatW=HOURW.map((w,h)=>(h>=6&&h<=21)?1+0.4*w:0.15);
+  const ft=flatW.reduce((a,b)=>a+b,0);
+  for(let i=0;i<STEPS;i++){
+    const h=Math.floor(i*DT/3600);
+    dem[i]+=basinTotal*(flatW[h]/ft)/60;       // litres in that hour, spread per minute
+  }
+  return {dem,showers:n,occRooms};
+}
+
+/* ---------- simulation ---------- */
+function simulate(p){
+  const rng=mulberry32(p.seed);
+  const {dem,showers,occRooms}=buildDemand(p,rng);
+  const Vn=p.store/NODES;
+  const T=new Array(NODES).fill(p.sp);
+  const mc=(p.flow*1000/3600)*CP;                       // kW per K
+  const mHP=p.flow*1000/60;                             // L/min through plant
+
+  const a={kW:30,name:"30 kW A"},b={kW:30,name:"30 kW B"};
+  const big=[];if(p.u30a)big.push(a);if(p.u30b)big.push(b);
+  let chain=[];
+  if(p.order==="small-first") chain=[...(p.u22?[{kW:22,name:"22 kW"}]:[]),...big];
+  else if(p.order==="small-last") chain=[...big,...(p.u22?[{kW:22,name:"22 kW"}]:[])];
+  else {const h=Math.ceil(big.length/2);chain=[...big.slice(0,h),...(p.u22?[{kW:22,name:"22 kW"}]:[]),...big.slice(h)];}
+  const installed=chain.reduce((s,u)=>s+u.kW,0);
+
+  const rec={top:new Float64Array(STEPS),bot:new Float64Array(STEPS),del:new Float64Array(STEPS),
+    draw:new Float64Array(STEPS),kwT:new Float64Array(STEPS),kwE:new Float64Array(STEPS),
+    cop:new Float64Array(STEPS),run:new Uint8Array(STEPS),lwt:new Float64Array(STEPS),
+    stageT:[],prof:[],fail:new Uint8Array(STEPS)};
+  for(let i=0;i<STEPS;i++){rec.stageT.push(null);rec.prof.push(null);}
+
+  let running=false,timer=0,cycles=0;
+  let kwhT=0,kwhE=0,litres=0,failMin=0,legioMin=0,runMin=0;
+
+  for(let i=0;i<STEPS;i++){
+    const tSec=i*DT, hour=tSec/3600;
+
+    /* --- draw --- */
+    const showerLmin=dem[i];                                   // includes basin as L/step, corrected below
+    const mixedL=showerLmin*(DT/60);                           // L this step at mix temp
+    const Ttop=T[0];
+    let hotL,delivered;
+    if(Ttop>p.mix+0.5){
+      const f=(p.mix-p.cold)/(Ttop-p.cold);
+      hotL=mixedL*clamp(f,0,1);delivered=p.mix;
+    }else{
+      hotL=mixedL;delivered=Math.max(Ttop,p.cold);             // tap full hot, still short
+    }
+    if(delivered<p.mix-0.5){rec.fail[i]=1;failMin+=DT/60;}
+    litres+=mixedL;
+
+    // advection up
+    if(hotL>0){
+      const v=Math.min(hotL,Vn*0.9);
+      const nT=T.slice();
+      for(let k2=0;k2<NODES-1;k2++) nT[k2]=(T[k2]*(Vn-v)+T[k2+1]*v)/Vn;
+      nT[NODES-1]=(T[NODES-1]*(Vn-v)+p.cold*v)/Vn;
+      for(let k2=0;k2<NODES;k2++)T[k2]=nT[k2];
+    }
+
+    /* --- control --- */
+    const sensor=(T[NODES-1]+T[NODES-2])/2;
+    const locked=p.tou&&((hour>=7&&hour<10)||(hour>=18&&hour<20));
+    timer-=DT;
+    if(locked){ if(running){running=false;timer=300;} }
+    else if(!running&&sensor<p.sp-p.db&&timer<=0){running=true;timer=300;cycles++;}
+    else if(running&&sensor>=p.sp&&timer<=0){running=false;timer=300;}
+
+    /* --- plant --- */
+    let Q=0,P=0,Tout=T[NODES-1],stages=null;
+    if(running&&chain.length){
+      let Tw=T[NODES-1];stages=[Tw];
+      for(const u of chain){const r=stage(u.kW,Tw,p.amb,mc,p.maxlwt);Q+=r.Q;P+=r.P;Tw=r.Tout;stages.push(Tw);}
+      Tout=Tw;
+      if(Q<0.5){running=false;Q=0;P=0;stages=null;}
+    }
+    if(running&&Q>0){
+      runMin+=DT/60;kwhT+=Q*DT/3600;kwhE+=P*DT/3600;
+      const v=Math.min(mHP*(DT/60),Vn*0.9);
+      const nT=T.slice();
+      nT[0]=(T[0]*(Vn-v)+Tout*v)/Vn;
+      for(let k2=1;k2<NODES;k2++) nT[k2]=(T[k2]*(Vn-v)+T[k2-1]*v)/Vn;
+      for(let k2=0;k2<NODES;k2++)T[k2]=nT[k2];
+    }
+
+    /* --- losses --- */
+    const uaNode=(p.ua*2)/NODES;                                // W/K per node
+    for(let k2=0;k2<NODES;k2++){
+      const loss=uaNode*(T[k2]-p.proom)/1000;                   // kW
+      T[k2]-=loss*DT/(Vn*RHO*CP);
+    }
+    // ring main loss pulled off the top
+    if(p.ring>0) T[0]-=p.ring*DT/(Vn*RHO*CP);
+
+    /* --- mixing + stable order --- */
+    const nT=T.slice();
+    for(let k2=1;k2<NODES-1;k2++) nT[k2]=T[k2]+0.004*(T[k2-1]+T[k2+1]-2*T[k2]);
+    for(let k2=0;k2<NODES;k2++)T[k2]=nT[k2];
+    for(let pass=0;pass<4;pass++)
+      for(let k2=NODES-1;k2>0;k2--)
+        if(T[k2]>T[k2-1]+0.001){const m=(T[k2]+T[k2-1])/2;T[k2]=m;T[k2-1]=m;}
+
+    if(T[NODES-1]<50) legioMin+=DT/60;
+
+    rec.top[i]=T[0];rec.bot[i]=T[NODES-1];rec.del[i]=delivered;
+    rec.draw[i]=hotL*(60/DT);rec.kwT[i]=Q;rec.kwE[i]=P;
+    rec.cop[i]=P>0?Q/P:0;rec.run[i]=running?1:0;rec.lwt[i]=Tout;
+    rec.stageT[i]=stages;if(!p.light)rec.prof[i]=T.slice();
+  }
+
+  const cop=kwhE>0?kwhT/kwhE:0;
+  return {rec,chain,installed,showers,occRooms,
+    kwhT,kwhE,cop,cost:kwhE*p.tariff,litres,failMin,legioMin,runMin,cycles,
+    minTop:Math.min(...rec.top),peakDraw:Math.max(...rec.draw),
+    peakMixed:Math.max(...dem)*(1), p};
+}
+
+/* ---------- read the panel ---------- */
+function readParams(){
+  return {
+    u22:$("u22").checked,u30a:$("u30a").checked,u30b:$("u30b").checked,
+    order:$("order").value,
+    flow:+$("flow").value, store:+$("store").value, sp:+$("sp").value,
+    db:+$("db").value, maxlwt:+$("maxlwt").value,
+    rooms:+$("rooms").value, occ:+$("occ").value/100, gpr:+$("gpr").value,
+    spg:+$("spg").value, sdur:+$("sdur").value, sflow:+$("sflow").value,
+    mix:+$("mix").value, basin:+$("basin").value, ring:+$("ring").value,
+    burst:$("burst").checked, bfrac:+$("bfrac").value/100, bhour:+$("bhour").value, bwin:+$("bwin").value,
+    amb:+$("amb").value, cold:+$("cold").value, proom:+$("proom").value,
+    ua:+$("ua").value, tou:$("tou").checked, tariff:+$("tariff").value, seed:+$("seed").value
+  };
+}
+
+/* ---------- colour by temperature ---------- */
+function tcol(t){
+  const x=clamp((t-15)/45,0,1);
+  const c1=[0x69,0xB0,0xC2], c2=[0xE8,0xA0,0x5C];
+  const mid=[0x8F,0xA6,0xA9];
+  let r,g,b;
+  if(x<0.45){const k=x/0.45;r=c1[0]+(mid[0]-c1[0])*k;g=c1[1]+(mid[1]-c1[1])*k;b=c1[2]+(mid[2]-c1[2])*k;}
+  else{const k=(x-0.45)/0.55;r=mid[0]+(c2[0]-mid[0])*k;g=mid[1]+(c2[1]-mid[1])*k;b=mid[2]+(c2[2]-mid[2])*k;}
+  return `rgb(${r|0},${g|0},${b|0})`;
+}
+
+/* ---------- schematic ---------- */
+function drawSchematic(S,i){
+  const r=S.rec, svg=$("svg");
+  const st=r.stageT[i], on=r.run[i]===1;
+  const bot=r.bot[i], top=r.top[i];
+  const chain=S.chain;
+  const NS="http://www.w3.org/2000/svg";
+  let h="";
+  const pipe=(x1,y1,x2,y2,t,w)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${tcol(t)}" stroke-width="${w||7}" stroke-linecap="round"/>`;
+  const txt=(x,y,s,cls)=>`<text x="${x}" y="${y}" class="${cls||''}">${s}</text>`;
+
+  // ---- heat pumps along the top run
+  const n=Math.max(chain.length,1);
+  const x0=120, span=210, boxW=118, boxH=76, boxY=52;
+  let out="";
+  out+=`<defs><style>
+    text{font-family:Bahnschrift,'Arial Narrow',sans-serif;fill:#8FA6A9}
+    .lbl{font-size:11px;letter-spacing:.09em;text-transform:uppercase}
+    .num{font-family:Consolas,monospace;font-size:15px;fill:#DEE8E6}
+    .big{font-family:Consolas,monospace;font-size:19px;fill:#E8A05C}
+    .tiny{font-size:9.5px;font-family:Consolas,monospace;letter-spacing:.05em;fill:#2E5A66}
+  </style></defs>`;
+
+  // cold return line from tank bottom to first machine
+  const tankX=740, tankTop=60, tankH=190, tankW=78;
+  const runY=boxY+boxH/2;
+
+  // bottom return path
+  out+=pipe(tankX-14,tankTop+tankH-18,60,tankTop+tankH-18,bot,6);
+  out+=pipe(60,tankTop+tankH-18,60,runY,bot,6);
+  out+=pipe(60,runY,x0,runY,bot,6);
+  out+=txt(66,tankTop+tankH-26,"RETURN",'lbl');
+  out+=`<text x="66" y="${tankTop+tankH+2}" class="num">${bot.toFixed(1)}°</text>`;
+
+  chain.forEach((u,k)=>{
+    const bx=x0+k*span;
+    const tin = st? st[k] : bot;
+    const tou = st? st[k+1] : bot;
+    if(k>0) out+=pipe(bx-span+boxW,runY,bx,runY,tin,7);
+    out+=`<rect x="${bx}" y="${boxY}" width="${boxW}" height="${boxH}" rx="2" fill="#0F2228" stroke="${on?'#C4703A':'#22434D'}" stroke-width="1.5"/>`;
+    out+=`<rect x="${bx}" y="${boxY}" width="${boxW}" height="3" fill="${on?'#C4703A':'#22434D'}"/>`;
+    out+=`<text x="${bx+10}" y="${boxY+22}" class="lbl">${u.name}</text>`;
+    out+=`<text x="${bx+10}" y="${boxY+45}" class="big">${on?(stageQ(S,i,k)).toFixed(1):'0.0'}<tspan font-size="11" fill="#8FA6A9"> kW</tspan></text>`;
+    out+=`<text x="${bx+10}" y="${boxY+64}" class="tiny">${tin.toFixed(1)}° → ${tou.toFixed(1)}°</text>`;
+    out+=`<circle cx="${bx+boxW-14}" cy="${boxY+20}" r="5" fill="${on?'#7BA98B':'#22434D'}"/>`;
+  });
+
+  // flow into tank top
+  const lastX=x0+(chain.length-1)*span+boxW;
+  const lwt=st?st[st.length-1]:bot;
+  if(chain.length){
+    out+=pipe(lastX,runY,lastX+40,runY,lwt,7);
+    out+=pipe(lastX+40,runY,lastX+40,tankTop+14,lwt,7);
+    out+=pipe(lastX+40,tankTop+14,tankX,tankTop+14,lwt,7);
+  }
+
+  // ---- tanks: single stratified column drawn as two vessels
+  for(let tk=0;tk<2;tk++){
+    const tx=tankX+tk*(tankW+22);
+    out+=`<rect x="${tx}" y="${tankTop}" width="${tankW}" height="${tankH}" rx="7" fill="#0A171B" stroke="#22434D"/>`;
+    for(let s=0;s<6;s++){
+      const idx=tk*6+s;
+      const T=nodeTemp(S,i,idx);
+      const sh=(tankH-8)/6;
+      out+=`<rect x="${tx+3}" y="${tankTop+4+s*sh}" width="${tankW-6}" height="${sh-1}" fill="${tcol(T)}" opacity="0.85"/>`;
+    }
+    out+=`<rect x="${tx}" y="${tankTop}" width="${tankW}" height="${tankH}" rx="7" fill="none" stroke="#2E5A66" stroke-width="1.5"/>`;
+    out+=`<text x="${tx+tankW/2}" y="${tankTop+tankH+18}" class="lbl" text-anchor="middle">TT-025-4</text>`;
+    out+=`<text x="${tx+tankW/2}" y="${tankTop+tankH+33}" class="tiny" text-anchor="middle" fill="#8FA6A9">2500 L</text>`;
+  }
+
+  // draw-off
+  const dx=tankX+2*(tankW+22)-22+tankW-56;
+  const drawn=r.draw[i];
+  out+=pipe(tankX+tankW+22+tankW,tankTop+14,tankX+tankW+22+tankW+52,tankTop+14,top,7);
+  out+=`<text x="${tankX+tankW+22+tankW-32}" y="${tankTop-12}" class="lbl">TO ROOMS</text>`;
+  out+=`<text x="${tankX+tankW+22+tankW-32}" y="${tankTop-30}" class="num" fill="${r.fail[i]?'#C9503F':'#DEE8E6'}">${r.del[i].toFixed(1)}°</text>`;
+
+  // cold makeup
+  out+=pipe(tankX+2*(tankW+22)-22+tankW,tankTop+tankH-18,tankX+2*(tankW+22)-22+tankW+52,tankTop+tankH-18,S.p.cold,6);
+  out+=`<text x="${tankX+tankW+22+tankW-30}" y="${tankTop+tankH+2}" class="tiny" fill="#69B0C2">COLD ${S.p.cold.toFixed(0)}°</text>`;
+
+  // footer strip
+  out+=`<line x1="20" y1="252" x2="960" y2="252" stroke="#22434D"/>`;
+  const items=[
+    ["Store top",top.toFixed(1)+"°C",top<45?'#C9503F':'#E8A05C'],
+    ["Store bottom",bot.toFixed(1)+"°C",'#69B0C2'],
+    ["Hot draw",drawn.toFixed(0)+" L/min",'#DEE8E6'],
+    ["Plant output",r.kwT[i].toFixed(1)+" kW",on?'#C4703A':'#2E5A66'],
+    ["Absorbed",r.kwE[i].toFixed(1)+" kW",'#D9A441'],
+    ["COP",r.cop[i]>0?r.cop[i].toFixed(2):"—",'#69B0C2'],
+    ["Status",r.fail[i]?"SHORT":(on?"CHARGING":"IDLE"),r.fail[i]?'#C9503F':(on?'#7BA98B':'#8FA6A9')]
+  ];
+  items.forEach((it,k)=>{
+    const x=26+k*134;
+    out+=`<text x="${x}" y="${272}" class="lbl">${it[0]}</text>`;
+    out+=`<text x="${x}" y="${291}" class="num" fill="${it[2]}">${it[1]}</text>`;
+  });
+
+  svg.innerHTML=out;
+}
+function stageQ(S,i,k){
+  const st=S.rec.stageT[i];if(!st)return 0;
+  const mc=(S.p.flow*1000/3600)*CP;
+  return (st[k+1]-st[k])*mc;
+}
+function nodeTemp(S,i,idx){
+  const pr=S.rec.prof[i];
+  return pr?pr[idx]:S.rec.top[i];
+}
+
+/* ---------- charts ---------- */
+function setupCanvas(cv){
+  const dpr=window.devicePixelRatio||1;
+  const w=cv.clientWidth, h=+cv.getAttribute("height");
+  cv.width=w*dpr;cv.height=h*dpr;cv.style.height=h+"px";
+  const g=cv.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);
+  return {g,w,h};
+}
+function axes(g,w,h,pad,yMin,yMax,unit){
+  g.strokeStyle="#1B343B";g.lineWidth=1;
+  g.font="11px Consolas, monospace";g.fillStyle="#5D7A80";
+  for(let k=0;k<=5;k++){
+    const v=yMin+(yMax-yMin)*k/5, y=h-pad.b-(h-pad.t-pad.b)*k/5;
+    g.beginPath();g.moveTo(pad.l,y);g.lineTo(w-pad.r,y);g.stroke();
+    g.fillText(v.toFixed(0)+unit,4,y+4);
+  }
+  for(let hh=0;hh<=24;hh+=3){
+    const x=pad.l+(w-pad.l-pad.r)*hh/24;
+    g.strokeStyle=hh%6===0?"#22434D":"#162C33";
+    g.beginPath();g.moveTo(x,pad.t);g.lineTo(x,h-pad.b);g.stroke();
+    g.fillStyle="#5D7A80";
+    g.fillText(String(hh).padStart(2,"0")+":00",x-16,h-pad.b+15);
+  }
+}
+function line(g,w,h,pad,arr,yMin,yMax,col,lw){
+  g.strokeStyle=col;g.lineWidth=lw||1.8;g.beginPath();
+  for(let i=0;i<STEPS;i++){
+    const x=pad.l+(w-pad.l-pad.r)*i/(STEPS-1);
+    const y=h-pad.b-(h-pad.t-pad.b)*clamp((arr[i]-yMin)/(yMax-yMin),0,1);
+    i?g.lineTo(x,y):g.moveTo(x,y);
+  }
+  g.stroke();
+}
+function area(g,w,h,pad,arr,yMin,yMax,col){
+  g.fillStyle=col;g.beginPath();
+  g.moveTo(pad.l,h-pad.b);
+  for(let i=0;i<STEPS;i++){
+    const x=pad.l+(w-pad.l-pad.r)*i/(STEPS-1);
+    const y=h-pad.b-(h-pad.t-pad.b)*clamp((arr[i]-yMin)/(yMax-yMin),0,1);
+    g.lineTo(x,y);
+  }
+  g.lineTo(w-pad.r,h-pad.b);g.closePath();g.fill();
+}
+function drawCharts(S){
+  const r=S.rec;
+  // chart 1
+  {
+    const {g,w,h}=setupCanvas($("c1"));
+    const pad={l:44,r:44,t:10,b:24};
+    g.clearRect(0,0,w,h);
+    const maxDraw=Math.max(20,Math.max(...r.draw)*1.15);
+    area(g,w,h,pad,r.draw,0,maxDraw,"rgba(46,90,102,0.55)");
+    axes(g,w,h,pad,0,70,"°");
+    // fail shading
+    g.fillStyle="rgba(201,80,63,0.22)";
+    for(let i=0;i<STEPS;i++) if(r.fail[i]){
+      const x=pad.l+(w-pad.l-pad.r)*i/(STEPS-1);
+      g.fillRect(x,pad.t,Math.max(1,(w-pad.l-pad.r)/STEPS+0.6),h-pad.t-pad.b);
+    }
+    line(g,w,h,pad,r.top,0,70,"#E8A05C",2);
+    line(g,w,h,pad,r.bot,0,70,"#69B0C2",1.6);
+    line(g,w,h,pad,r.del,0,70,"#7BA98B",1.6);
+    // 40C reference
+    const y40=h-pad.b-(h-pad.t-pad.b)*40/70;
+    g.strokeStyle="#C9503F";g.setLineDash([4,4]);g.lineWidth=1;
+    g.beginPath();g.moveTo(pad.l,y40);g.lineTo(w-pad.r,y40);g.stroke();g.setLineDash([]);
+    g.fillStyle="#5D7A80";g.font="11px Consolas, monospace";
+    g.fillText(maxDraw.toFixed(0),w-38,pad.t+10);g.fillText("L/min",w-38,pad.t+22);
+    markCursor(g,w,h,pad);
+  }
+  // chart 2
+  {
+    const {g,w,h}=setupCanvas($("c2"));
+    const pad={l:44,r:44,t:10,b:24};
+    g.clearRect(0,0,w,h);
+    const mx=Math.max(20,Math.max(...r.kwT)*1.2);
+    axes(g,w,h,pad,0,mx,"");
+    area(g,w,h,pad,r.kwT,0,mx,"rgba(196,112,58,0.30)");
+    line(g,w,h,pad,r.kwT,0,mx,"#C4703A",2);
+    line(g,w,h,pad,r.kwE,0,mx,"#D9A441",1.6);
+    const copScaled=Float64Array.from(r.cop,v=>v/7*mx);
+    line(g,w,h,pad,copScaled,0,mx,"#69B0C2",1.4);
+    g.fillStyle="#5D7A80";g.font="11px Consolas, monospace";
+    g.fillText("kW",4,pad.t+10);g.fillText("COP 7",w-38,pad.t+10);g.fillText("COP 0",w-38,h-pad.b);
+    markCursor(g,w,h,pad);
+  }
+}
+function markCursor(g,w,h,pad){
+  const i=+$("time").value;
+  const x=pad.l+(w-pad.l-pad.r)*i/(STEPS-1);
+  g.strokeStyle="rgba(222,232,230,0.45)";g.lineWidth=1;
+  g.beginPath();g.moveTo(x,pad.t);g.lineTo(x,h-pad.b);g.stroke();
+}
+
+/* ---------- KPIs + verdict ---------- */
+function drawKPIs(S){
+  const p=S.p;
+  const failCls=S.failMin===0?"good":(S.failMin<15?"warn":"bad");
+  const legCls=S.legioMin>240?"warn":"good";
+  const cycCls=S.cycles>18?"warn":"good";
+  const k=[
+    ["Guests short of "+p.mix+"°C",failCls,S.failMin.toFixed(0),"min",S.failMin===0?"nobody ran cold":"across the day"],
+    ["Coldest the top got","",S.minTop.toFixed(1),"°C","store top, worst moment"],
+    ["Peak hot draw","",S.peakDraw.toFixed(0),"L/min","from the tanks"],
+    ["Heat delivered","",S.kwhT.toFixed(0),"kWh","into the water"],
+    ["Electricity used","",S.kwhE.toFixed(0),"kWh","R"+S.cost.toFixed(0)+" at R"+p.tariff.toFixed(2)],
+    ["Average COP",S.cop>=3?"good":(S.cop>=2.5?"":"warn"),S.cop.toFixed(2),"","seasonal, this day"],
+    ["Plant run time","",(S.runMin/60).toFixed(1),"h","of 24"],
+    ["Compressor starts",cycCls,String(S.cycles),"","short cycling above ~18"],
+    ["Store below 50 °C",legCls,(S.legioMin/60).toFixed(1),"h","legionella watch"],
+    ["Hot water drawn","",(S.litres/1000).toFixed(1),"m³","at "+p.mix+"°C mixed"]
+  ];
+  $("kpis").innerHTML=k.map(x=>`<div class="kpi ${x[1]}">
+    <div class="k">${x[0]}</div>
+    <div class="v">${x[2]}<small>${x[3]}</small></div>
+    <div class="n">${x[4]}</div></div>`).join("");
+}
+
+function drawVerdict(S){
+  const p=S.p, li=[];
+  const cls=S.failMin===0?"ok":(S.failMin<15?"":"bad");
+  const head=S.failMin===0?"The plant holds"
+        :(S.failMin<15?"Marginal — it wobbles":"It fails");
+
+  const peakThermal=Math.max(...S.rec.draw)*(p.mix-p.cold)*CP/60;
+  const avgDaily=S.kwhT;
+  const spare=S.installed*ambFactor(p.amb);
+
+  if(S.failMin===0){
+    li.push(`Every draw was served at ${p.mix} °C. The top of the store never dropped below <b>${S.minTop.toFixed(1)} °C</b>.`);
+  }else{
+    const first=S.rec.fail.findIndex(v=>v===1);
+    const hh=Math.floor(first*DT/3600), mm=Math.floor((first*DT%3600)/60);
+    li.push(`Guests started running short at <b>${String(hh).padStart(2,"0")}:${String(mm).padStart(2,"0")}</b> and it lasted <b>${S.failMin.toFixed(0)} minutes</b> in total.`);
+  }
+  li.push(`Peak instantaneous demand hit <b>${peakThermal.toFixed(0)} kW</b> of heat against roughly <b>${spare.toFixed(0)} kW</b> of plant at ${p.amb} °C ambient. The gap is what the ${p.store} L store is there to cover.`);
+  li.push(`The plant ran <b>${(S.runMin/60).toFixed(1)} hours</b> and moved <b>${S.kwhT.toFixed(0)} kWh</b> of heat for <b>${S.kwhE.toFixed(0)} kWh</b> of electricity — <b>R${S.cost.toFixed(0)}</b> for the day, or about <b>R${(S.cost*30).toFixed(0)}</b> a month at this occupancy.`);
+  const resist=S.kwhT*p.tariff;
+  li.push(`On elements instead of heat pumps that same heat costs <b>R${resist.toFixed(0)}</b> a day. The plant is saving about <b>R${((resist-S.cost)*30).toFixed(0)}</b> a month.`);
+  if(p.ring>0){
+    const ringKwh=p.ring*24;
+    li.push(`The ring main quietly ate <b>${ringKwh.toFixed(0)} kWh</b> — <b>${(ringKwh/S.kwhT*100).toFixed(0)}%</b> of everything the plant made, before a single guest showered. Insulation on the circulation loop pays back faster than anything else on this list.`);
+  }
+  if(S.cycles>18) li.push(`<b>${S.cycles} compressor starts</b> in a day. Widen the deadband or check the sensor position before this costs you a compressor.`);
+  if(S.legioMin/60>4) li.push(`The bottom of the store sat under 50 °C for <b>${(S.legioMin/60).toFixed(1)} hours</b>. Worth a look at your pasteurisation cycle.`);
+  const nOn=(p.u22?1:0)+(p.u30a?1:0)+(p.u30b?1:0);
+  if(nOn<3) li.push(`Running on <b>${nOn} of 3</b> machines. This is the number to know before a compressor goes down in July.`);
+
+  $("verdict").innerHTML=`<div class="verdict ${cls}"><h4>${head}</h4><ul>${li.map(x=>"<li>"+x+"</li>").join("")}</ul></div>`;
+}
+
+/* ---------- sweep ---------- */
+function runSweep(){
+  const base=readParams();
+  const rows=[];
+  for(let rooms=20;rooms<=200;rooms+=10){
+    let worstFail=0,worstMin=99;
+    for(const sd of [base.seed,base.seed+101,base.seed+202]){
+      const p={...base,rooms,seed:sd,light:true};
+      const S=simulate(p);
+      worstFail=Math.max(worstFail,S.failMin);
+      worstMin=Math.min(worstMin,S.minTop);
+    }
+    rows.push({rooms,fail:worstFail,minTop:worstMin});
+    if(worstFail>60&&rooms>base.rooms) break;
+  }
+  const lastOk=[...rows].reverse().find(r=>r.fail===0);
+  $("sweepBlk").classList.remove("hidden");
+  $("sweepTbl").innerHTML=
+    `<tr><th>Rooms</th><th>Guests short (worst of 3 seeds)</th><th>Coldest store top</th><th>Verdict</th></tr>`+
+    rows.map(r=>{
+      const cls=r.fail===0?"pass":(r.fail<15?"edge":"fail");
+      const v=r.fail===0?"holds":(r.fail<15?"marginal":"runs out");
+      return `<tr class="${cls}"><td>${r.rooms}</td><td>${r.fail.toFixed(0)} min</td><td>${r.minTop.toFixed(1)} °C</td><td>${v}</td></tr>`;
+    }).join("")+
+    `<tr><td colspan="4" style="padding-top:12px;color:#DEE8E6;border:0">`+
+    (lastOk?`Comfortable ceiling for this plant under these conditions: <b style="color:#E8A05C">${lastOk.rooms} rooms</b>.`
+           :`This plant does not hold even at the smallest room count tested. Check your settings.`)+
+    `</td></tr>`;
+  $("sweepBlk").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------- wiring ---------- */
+let SIM=null, playing=false, raf=null;
+
+function run(){
+  const p=readParams();
+  if(!p.u22&&!p.u30a&&!p.u30b){alert("Switch at least one heat pump on.");return;}
+  SIM=simulate(p);
+  drawKPIs(SIM);drawVerdict(SIM);drawCharts(SIM);
+  update();
+}
+function update(){
+  if(!SIM)return;
+  const i=+$("time").value;
+  const s=i*DT, hh=Math.floor(s/3600), mm=Math.floor((s%3600)/60);
+  $("clock").textContent=String(hh).padStart(2,"0")+":"+String(mm).padStart(2,"0");
+  drawSchematic(SIM,i);
+  drawCharts(SIM);
+}
+$("time").addEventListener("input",()=>{ if(SIM){const i=+$("time").value;const s=i*DT;
+  $("clock").textContent=String(Math.floor(s/3600)).padStart(2,"0")+":"+String(Math.floor((s%3600)/60)).padStart(2,"0");
+  drawSchematic(SIM,i);drawCharts(SIM);} });
+$("run").addEventListener("click",run);
+$("reseed").addEventListener("click",()=>{$("seed").value=(+$("seed").value%9999)+37;run();});
+$("sweep").addEventListener("click",runSweep);
+$("play").addEventListener("click",()=>{
+  playing=!playing;$("play").textContent=playing?"❚❚":"▶";
+  if(playing)step();else cancelAnimationFrame(raf);
+});
+let frame=0;
+function step(){
+  const i=+$("time").value;
+  const j=(i+6)%STEPS;
+  $("time").value=j;
+  const s=j*DT;
+  $("clock").textContent=String(Math.floor(s/3600)).padStart(2,"0")+":"+String(Math.floor((s%3600)/60)).padStart(2,"0");
+  drawSchematic(SIM,j);
+  if(frame++%6===0) drawCharts(SIM);
+  raf=requestAnimationFrame(step);
+}
+document.querySelectorAll("#flowPresets button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    $("sflow").value=b.dataset.f;
+    document.querySelectorAll("#flowPresets button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");run();
+  });
+});
+document.querySelectorAll(".rail input, .rail select").forEach(el=>{
+  el.addEventListener("change",run);
+});
+window.addEventListener("resize",()=>{if(SIM)drawCharts(SIM);});
+document.querySelector('#flowPresets button[data-f="9"]').classList.add("on");
+run();
+$("time").value=390; update();   // land on 06:30
+</script>
+</body>
+</html>

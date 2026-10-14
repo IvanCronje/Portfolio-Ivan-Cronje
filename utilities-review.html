@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utilities Tracking Sheet — Data Review, Premier Resort Knysna The Moorings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8EDEB; --paper-2:#F3F6F5; --ink:#0D1F1B; --ink-60:#4A605A;
+  --teal:#0B6B58; --amber:#B8730F; --alarm:#9E2B18; --rule:#AFBEB9; --rule-soft:#D2DCD8;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,Segoe UI,sans-serif;
+  font-size:16px; line-height:1.62;
+}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:2.5px solid var(--ink);padding:44px 0 18px;margin-bottom:0}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-60);display:flex;flex-wrap:wrap;gap:6px 20px;
+}
+h1{
+  font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
+  font-size:clamp(34px,6.2vw,60px);line-height:1.02;letter-spacing:-.025em;
+  margin:14px 0 10px;max-width:16ch;
+}
+.dek{font-size:19px;line-height:1.5;max-width:56ch;color:var(--ink);margin:0 0 6px}
+.dek b{font-weight:600;box-shadow:inset 0 -0.5em 0 rgba(11,107,88,.16)}
+
+/* ---------- verdict strip ---------- */
+.verdict{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-bottom:1px solid var(--ink);margin-bottom:56px;
+}
+.v{padding:20px 18px 22px;border-right:1px solid var(--rule)}
+.v:last-child{border-right:0}
+.v .num{
+  font-family:"IBM Plex Mono",monospace;font-size:34px;font-weight:600;
+  letter-spacing:-.03em;line-height:1;display:block
+}
+.v .lab{font-size:12.5px;line-height:1.4;color:var(--ink-60);margin-top:8px;display:block}
+.v.bad .num{color:var(--alarm)}
+.v.warn .num{color:var(--amber)}
+.v.ok .num{color:var(--teal)}
+
+/* ---------- sections ---------- */
+section{margin:0 0 68px}
+.sechead{display:flex;align-items:baseline;gap:14px;border-bottom:1.5px solid var(--ink);padding-bottom:8px;margin-bottom:26px}
+.secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--teal);letter-spacing:.1em}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(22px,3.4vw,30px);letter-spacing:-.018em;margin:0;line-height:1.1}
+h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:18px;letter-spacing:-.01em;margin:32px 0 8px}
+p{margin:0 0 16px;max-width:70ch}
+.lede{font-size:17.5px;max-width:64ch}
+
+/* ---------- signature: capture tape ---------- */
+.tape{background:var(--paper-2);border:1px solid var(--rule);padding:24px 20px 16px;overflow-x:auto}
+.tape-rows{display:flex;gap:3px;min-width:660px;align-items:flex-end}
+.mcol{flex:1 1 0;min-width:0}
+.ticks{display:flex;gap:1px;height:112px;align-items:flex-end}
+.tick{flex:1 1 0;min-width:2px;background:var(--rule-soft);border-radius:.5px}
+.tick.n1{height:34%;background:#C9A46B}
+.tick.n2{height:66%;background:#7FA88C}
+.tick.n3{height:100%;background:var(--teal)}
+.tick.n0{height:8%;background:#D9C4BE}
+.mlab{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-60);
+  text-align:center;padding-top:8px;border-top:1px solid var(--rule);margin-top:8px;
+  white-space:nowrap;letter-spacing:.02em;
+}
+.mlab.gap{color:var(--alarm);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;font-size:12.5px;color:var(--ink-60);font-family:"IBM Plex Mono",monospace}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px;border-radius:1px}
+.cap{font-size:13px;color:var(--ink-60);margin-top:14px;max-width:76ch;font-style:italic}
+
+/* ---------- chart ---------- */
+.chartbox{background:var(--paper-2);border:1px solid var(--rule);padding:22px 18px 14px;margin:20px 0}
+svg{display:block;width:100%;height:auto}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;margin:8px 0 10px;font-size:14.5px}
+th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-60);font-weight:600;
+  border-bottom:1.5px solid var(--ink);padding:0 10px 7px;vertical-align:bottom;
+}
+td{padding:11px 10px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:1px solid var(--rule)}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sev{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.08em;
+  padding:2.5px 7px;border-radius:2px;white-space:nowrap;text-transform:uppercase;
+}
+.s1{background:var(--alarm);color:#fff}
+.s2{background:var(--amber);color:#fff}
+.s3{background:var(--rule);color:var(--ink)}
+.wrong{color:var(--alarm);font-weight:600}
+.right{color:var(--teal);font-weight:600}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:13.5px;background:#DCE4E1;padding:1px 5px;border-radius:2px;white-space:nowrap}
+
+/* ---------- callout ---------- */
+.pull{
+  border-left:3px solid var(--teal);padding:4px 0 4px 22px;margin:26px 0;
+  font-family:"Bricolage Grotesque",sans-serif;font-size:20px;line-height:1.38;
+  font-weight:500;letter-spacing:-.01em;max-width:54ch;
+}
+.pull.alarm{border-color:var(--alarm)}
+
+/* ---------- action list ---------- */
+.phase{border-top:1.5px solid var(--ink);padding-top:14px;margin-top:34px}
+.phase-h{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.phase-h .when{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.phase-h h3{margin:0}
+ol.acts{list-style:none;padding:0;margin:14px 0 0;counter-reset:a}
+ol.acts li{
+  counter-increment:a;padding:14px 0 14px 46px;position:relative;
+  border-bottom:1px solid var(--rule-soft);max-width:74ch;
+}
+ol.acts li:last-child{border-bottom:0}
+ol.acts li::before{
+  content:counter(a,decimal-leading-zero);position:absolute;left:0;top:15px;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--ink-60);
+}
+ol.acts b{font-weight:600;display:block;margin-bottom:2px}
+ol.acts span{color:var(--ink-60);font-size:14.5px}
+
+footer{border-top:2.5px solid var(--ink);padding-top:16px;font-size:12.5px;color:var(--ink-60);font-family:"IBM Plex Mono",monospace;line-height:1.7}
+
+@media (max-width:680px){
+  .verdict{grid-template-columns:1fr 1fr}
+  .v{border-bottom:1px solid var(--rule)}
+  .v:nth-child(2){border-right:0}
+  .v:nth-child(3),.v:nth-child(4){border-bottom:0}
+  td,th{padding-left:6px;padding-right:6px;font-size:13.5px}
+}
+@media print{
+  body{background:#fff}
+  section{break-inside:avoid}
+}
+@media (prefers-reduced-motion:no-preference){
+  .tick{animation:rise .5s cubic-bezier(.2,.8,.3,1) both}
+  @keyframes rise{from{transform:scaleY(.05);opacity:0}to{transform:scaleY(1);opacity:1}}
+  .tick{transform-origin:bottom}
+}
+</style>
+</head>
+<body>
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:44px;background:#0b0c0d;border-bottom:1px solid rgba(242,242,243,.18);font:10.5px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase"><span style="color:#f2f2f3">IVAN CRONJE</span><a href="index.html#library" style="color:#8fb3d6;text-decoration:none">&larr; Portfolio</a></div>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">
+    <span>Premier Resort Knysna — The Moorings</span>
+    <span>Engineering Department</span>
+    <span>5 August 2026</span>
+  </div>
+  <h1>What the tracking sheet is actually telling us</h1>
+  <p class="dek">A line-by-line review of the F26 utilities tracking workbook — 13 monthly tabs, 396 daily rows. <b>Most of the sheet is empty, and a good part of what is filled in is wrong.</b> This sets out what I found, what the corrected numbers look like, and what I'm changing.</p>
+</header>
+
+<div class="verdict">
+  <div class="v bad"><span class="num">23%</span><span class="lab">of days have an electricity reading — 92 of 396</span></div>
+  <div class="v bad"><span class="num">0%</span><span class="lab">of days have a waste or generator entry</span></div>
+  <div class="v warn"><span class="num">5</span><span class="lab">months with no data at all in any column</span></div>
+  <div class="v ok"><span class="num">R0</span><span class="lab">of utility cost tracked — budget rows are blank</span></div>
+</div>
+
+<!-- ============ 01 ============ -->
+<section>
+  <div class="sechead"><span class="secnum">01</span><h2>The capture record</h2></div>
+  <p class="lede">Every day in the workbook is one tick below. Full height means occupancy, electricity and water were all captured. Short means one field. Almost nothing means the row exists but is empty.</p>
+
+  <div class="tape">
+    <div class="tape-rows" id="tape"></div>
+    <div class="legend">
+      <span><i style="background:#0B6B58"></i>all 3 captured</span>
+      <span><i style="background:#7FA88C"></i>2 of 3</span>
+      <span><i style="background:#C9A46B"></i>1 of 3</span>
+      <span><i style="background:#D9C4BE"></i>nothing</span>
+    </div>
+    <p class="cap">Only two months in the whole file — March 2026 and July 2026 — are complete across occupancy, energy and water. October 2025 through February 2026 is a five-month blackout: 151 days, not one figure recorded.</p>
+  </div>
+
+  <p style="margin-top:26px">There is also a labelling problem that makes the file hard to trust before you even look at a number. Three tabs are named for the wrong year:</p>
+  <table>
+    <thead><tr><th>Tab name</th><th>Dates actually inside it</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">April 2026</td><td>1–30 April <b>2025</b></td><td>Reads as current-year data</td></tr>
+      <tr><td class="mono">May 2026</td><td>1–31 May <b>2025</b></td><td>Reads as current-year data</td></tr>
+      <tr><td class="mono">Jun 2026</td><td>1–30 June <b>2025</b></td><td>Reads as current-year data</td></tr>
+      <tr><td class="mono">— missing —</td><td>March 2025</td><td>First month of F26 has no tab</td></tr>
+      <tr><td class="mono">— missing —</td><td>April, May, June 2026</td><td>Three months of the current year are unrecorded</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 02 ============ -->
+<section>
+  <div class="sechead"><span class="secnum">02</span><h2>The defect register</h2></div>
+  <p class="lede">Ten faults, worst first. The first four change the headline numbers by orders of magnitude, not percentages.</p>
+  <table>
+    <thead><tr><th style="width:60px">Sev</th><th>Where</th><th>What's wrong</th><th class="n">Impact</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sev s1">Critical</span></td><td>Profile, row 7<br><span class="mono">kL Consumed</span></td><td>June–November 2025 water figures are identical, digit for digit, to the room-night figures in row 4. Someone copied the wrong row. Six of twelve baseline months are not water data at all.</td><td class="n">Baseline<br>invalid</td></tr>
+      <tr><td><span class="sev s1">Critical</span></td><td>Jun 2025 tab<br><span class="mono">col Q</span></td><td>A meter rollover was entered as a raw subtraction, producing a negative day. Month totals −116,113 kL.</td><td class="n wrong">−116,113 kL</td></tr>
+      <tr><td><span class="sev s1">Critical</span></td><td>Jul 2026 tab<br><span class="mono">N5</span></td><td>Day one has no opening reading, so the whole cumulative meter value lands in the first day's consumption. Real July usage is 1,083 kL.</td><td class="n wrong">101,832 kL<br>reported</td></tr>
+      <tr><td><span class="sev s1">Critical</span></td><td>Profile, row 22</td><td>Consequence of the two above: year-to-date water intensity reads −7,383 litres per bed night. A negative is physically impossible and nobody caught it.</td><td class="n wrong">−7,383 L/BNS</td></tr>
+      <tr><td><span class="sev s2">High</span></td><td>Jul 2026<br><span class="mono">G36</span></td><td>Month total is hard-typed as 87,750 kWh — the exact figure from July 2025. The daily readings underneath add to 85,065.</td><td class="n">2,685 kWh<br>overstated</td></tr>
+      <tr><td><span class="sev s2">High</span></td><td>Jul 2026<br><span class="mono">B23</span></td><td>19 July shows 315 room nights against 28 bed nights. The property cannot sell 315 rooms in a night. It inflates the month's room nights by 22%.</td><td class="n">1,746 vs<br>1,431 true</td></tr>
+      <tr><td><span class="sev s2">High</span></td><td>All tabs<br><span class="mono">col M</span></td><td>The meter column is used three different ways — cumulative readings on some tabs, daily deltas on March 2026 and April 2025, blank on six. No formula can span the file.</td><td class="n">4 of 13 tabs<br>usable</td></tr>
+      <tr><td><span class="sev s2">High</span></td><td>Total rows</td><td>Formulas are inconsistent between tabs: intensity divides by column F on some sheets and column B on others, the ×1000 litre conversion is missing on May, and three tabs have the water total hard-typed over the formula.</td><td class="n">3 tabs<br>hard-typed</td></tr>
+      <tr><td><span class="sev s3">Medium</span></td><td>Profile<br><span class="mono">B12 vs row 30</span></td><td>Two different recycling targets in the same workbook — 35% in the savings block, 25% in the waste block.</td><td class="n">—</td></tr>
+      <tr><td><span class="sev s3">Medium</span></td><td>Profile, row 28</td><td>May shows 100% recycled. That's only because landfill was never weighed, so the denominator is the recycling figure. It's a divide-by-nothing, not an achievement.</td><td class="n">False<br>positive</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 03 ============ -->
+<section>
+  <div class="sechead"><span class="secnum">03</span><h2>Corrected numbers</h2></div>
+  <p class="lede">Only three months have enough daily electricity data to say anything. Here they are as reported, and as they read once the faults above are stripped out.</p>
+  <table>
+    <thead><tr><th>Month</th><th class="n">Room nights</th><th class="n">kWh</th><th class="n">kWh/RNS<br>reported</th><th class="n">kWh/RNS<br>corrected</th><th class="n">Target</th><th class="n">Variance</th></tr></thead>
+    <tbody>
+      <tr><td>April 2025</td><td class="n">1,098</td><td class="n">57,918</td><td class="n">58.31</td><td class="n">52.75</td><td class="n">39.01</td><td class="n wrong">+35%</td></tr>
+      <tr><td>March 2026</td><td class="n">1,360</td><td class="n">59,315</td><td class="n">43.61</td><td class="n">43.61</td><td class="n">30.51</td><td class="n wrong">+43%</td></tr>
+      <tr><td>July 2026</td><td class="n">1,431</td><td class="n">83,003</td><td class="n">50.26</td><td class="n">58.00</td><td class="n">59.50</td><td class="n right">−3%</td></tr>
+    </tbody>
+  </table>
+  <p class="cap">July corrected excludes 19 July (the 315-room-night typo) and uses the daily readings rather than the hard-typed total. Note the direction of travel: correcting the data makes July look <em>worse</em>, not better. It moves from comfortably inside target to just scraping it.</p>
+
+  <p style="margin-top:26px">Water, on the two months where the meter readings are continuous and trustworthy:</p>
+  <table>
+    <thead><tr><th>Month</th><th class="n">Reported kL</th><th class="n">True kL<br>(meter span)</th><th class="n">Reported L/BNS</th><th class="n">True L/BNS</th><th class="n">Target</th></tr></thead>
+    <tbody>
+      <tr><td>July 2025</td><td class="n">1,442</td><td class="n">1,416</td><td class="n">544</td><td class="n">534</td><td class="n">502</td></tr>
+      <tr><td>July 2026</td><td class="n wrong">101,832</td><td class="n right">1,083</td><td class="n wrong">41,111</td><td class="n right">437</td><td class="n">502</td></tr>
+    </tbody>
+  </table>
+  <p class="cap">July 2026 is genuinely a good water month — 437 litres per bed night against a 502 target, and 18% below the same month last year. That result is currently buried under a reporting error that makes it look like the property used a hundred million litres.</p>
+</section>
+
+<!-- ============ 04 ============ -->
+<section>
+  <div class="sechead"><span class="secnum">04</span><h2>The finding that matters</h2></div>
+  <p class="lede">Across all 92 days with electricity readings, occupancy barely explains consumption at all. The correlation between room nights and daily kWh is 0.22 — statistically, occupancy accounts for about 5% of what we burn.</p>
+
+  <div class="pull">Fit a line through the data and it comes out at roughly 1,890 kWh a day fixed, plus about 2 kWh for each additional room night. Around 75% of the electricity bill is being spent whether guests are in the building or not.</div>
+
+  <p>That is the whole opportunity in one sentence. Chasing guest behaviour — towel cards, key-tag switches, low-flow heads — is working on the 25%. The plant that runs regardless of occupancy is where the money is: hot water generation, pool plant, kitchen refrigeration, external and back-of-house lighting, and anything left on a timer that no longer matches how the building is used.</p>
+
+  <h3>July 2026, day by day</h3>
+  <div class="chartbox">
+    <svg id="chart" viewBox="0 0 900 340" role="img" aria-label="Daily electricity consumption against room nights, July 2026. Consumption drops sharply from 15 July while occupancy stays high."></svg>
+  </div>
+  <p>Two weeks at 3,446 kWh a day, then from 15 July it drops to 2,166 and stays there — a 37% fall. Occupancy does not explain it. The 15th and 16th were the two <em>busiest</em> nights of the month, 108 and 109 rooms, and they used less electricity than the 18th, when we had seven rooms occupied.</p>
+  <div class="pull alarm">Either something with a ~1,200 kWh/day load came off on 15 July, or the meter changed what it was reading. Nobody wrote a note against either day. This is the single most valuable question in the file and I can't answer it from the data.</div>
+  <p>If it's a genuine plant change it is worth roughly <b>R1.0 million a year</b> at R2.50/kWh and we need to know exactly what did it so it doesn't quietly get reversed. If it's a metering change, then the first-half figures are inflated and every intensity number for July is wrong. Same number, two completely opposite conclusions, and the only thing separating them is a note in a column we leave blank.</p>
+  <p>For context: at March 2026 and April 2025 levels the property ran at about 1,920 kWh a day. On that basis the 1–14 July period was <b>19,881 kWh above expectation — roughly R50,000 in two weeks</b>.</p>
+
+  <h3>One more tell</h3>
+  <p>Eight of the 92 daily electricity readings are exact duplicates of another day, to one decimal place. Meters do not repeat themselves to 0.1 kWh. Those readings were carried forward, not read.</p>
+</section>
+
+<!-- ============ 05 ============ -->
+<section>
+  <div class="sechead"><span class="secnum">05</span><h2>What I'm changing</h2></div>
+  <p class="lede">The workbook doesn't need replacing. It needs the capture discipline the design already assumes, and about a day of repair work on the formulas.</p>
+
+  <div class="phase">
+    <div class="phase-h"><span class="when">This week</span><h3>Stop the bleeding</h3></div>
+    <ol class="acts">
+      <li><b>Fix the four critical water errors</b><span>Enter the opening meter reading in the row above day one on every tab, replace the three hard-typed water totals with formulas, and re-derive the June 2025 rollover from the raw readings. Until this is done every water number we report is fiction.</span></li>
+      <li><b>Correct the 19 July room-night entry and the hard-typed July total</b><span>Both are single-cell fixes. Both currently make our energy performance look better than it is.</span></li>
+      <li><b>Find out what happened on 15 July</b><span>Cross-check the WhatsApp log, the job cards and the hot water plant work for that date. Write the answer into the Notes column against 15 July 2026 so it survives.</span></li>
+      <li><b>Rename the three mislabelled tabs</b><span>April/May/June 2026 become April/May/June 2025, and open fresh tabs for the current year.</span></li>
+    </ol>
+  </div>
+
+  <div class="phase">
+    <div class="phase-h"><span class="when">This month</span><h3>Make capture non-optional</h3></div>
+    <ol class="acts">
+      <li><b>Readings move onto the night shift checklist</b><span>Electricity, water and generator hours, same time every night, by the person already walking the plant rooms. It is a four-minute job. The five-month blackout happened because it belonged to nobody.</span></li>
+      <li><b>One entry convention, written at the top of every tab</b><span>Column M is the cumulative meter reading, always. Consumption is calculated, never typed. The three-way mix in the current file is why nothing reconciles.</span></li>
+      <li><b>Validation on the input cells</b><span>Room nights capped at the room count, a warning if today's meter reading is lower than yesterday's, and conditional formatting on any intensity outside 0–1,000. A negative water figure should never be able to reach the Profile tab.</span></li>
+      <li><b>Make the Notes column compulsory on any day that moves more than 25%</b><span>The 15 July question would already be answered if this rule had existed.</span></li>
+      <li><b>Settle the recycling target</b><span>35% or 25%. Pick one, delete the other, and start weighing landfill so the percentage means something.</span></li>
+    </ol>
+  </div>
+
+  <div class="phase">
+    <div class="phase-h"><span class="when">This quarter</span><h3>Go after the baseload</h3></div>
+    <ol class="acts">
+      <li><b>Overnight load audit</b><span>Two nights at low occupancy, walking the property between 02:00 and 04:00 with a clamp meter, logging what is drawing power. That gives us the fixed 1,890 kWh a day broken down by system instead of as one number.</span></li>
+      <li><b>Sub-meter the four biggest loads</b><span>Hot water plant, pool plant, kitchen and laundry. One number for the whole property tells us we have a problem; it never tells us where. Sub-meters are the cheapest diagnostic we can buy.</span></li>
+      <li><b>Fill in the cost rows</b><span>Rows 39–43 of the Profile tab are empty, so total utilities reads R0. Kilowatt-hours don't get anyone's attention upstairs. Rands do — and at R2.50/kWh we're spending roughly R142,000 a month on the fixed load alone.</span></li>
+      <li><b>Re-baseline once we have six clean months</b><span>The current 2025 baseline is built partly on room-night figures pasted into the water row. Any saving measured against it is meaningless. I'd rather set an honest baseline late than report a saving I can't defend.</span></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  Source: Premier_Hotel_Knysna_The_Moorings_Tracking_Sheet_F26.xlsx — 13 monthly tabs, 396 daily rows, extracted 5 August 2026.<br>
+  Electricity costed at R2.50/kWh for illustration; actual tariff to be confirmed against the municipal account.<br>
+  Ivan Cronje — Maintenance Manager, Premier Resort Knysna The Moorings.
+</footer>
+</div>
+
+<script>
+const tapeData = [{"tab": "April 2026", "label": "Apr 25", "days": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], "occ": 30, "nrg": 30, "wtr": 30, "n": 30}, {"tab": "May 2026", "label": "May 25", "days": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "occ": 0, "nrg": 0, "wtr": 31, "n": 31}, {"tab": "Jun 2026", "label": "Jun 25", "days": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "occ": 30, "nrg": 0, "wtr": 30, "n": 30}, {"tab": "Jul 2025", "label": "Jul 25", "days": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "occ": 31, "nrg": 0, "wtr": 31, "n": 31}, {"tab": "Aug 2025", "label": "Aug 25", "days": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "occ": 31, "nrg": 0, "wtr": 0, "n": 31}, {"tab": "Sep 2025", "label": "Sep 25", "days": [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "occ": 30, "nrg": 0, "wtr": 2, "n": 30}, {"tab": "Oct 2025", "label": "Oct 25", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "occ": 0, "nrg": 0, "wtr": 0, "n": 31}, {"tab": "Nov 2025", "label": "Nov 25", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "occ": 0, "nrg": 0, "wtr": 0, "n": 30}, {"tab": "Dec 2025", "label": "Dec 25", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "occ": 0, "nrg": 0, "wtr": 0, "n": 31}, {"tab": "Jan 2026", "label": "Jan 26", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "occ": 0, "nrg": 0, "wtr": 0, "n": 31}, {"tab": "Feb 2026", "label": "Feb 26", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "occ": 0, "nrg": 0, "wtr": 0, "n": 28}, {"tab": "Mar 2026", "label": "Mar 26", "days": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], "occ": 31, "nrg": 31, "wtr": 31, "n": 31}, {"tab": "Jul 2026", "label": "Jul 26", "days": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], "occ": 31, "nrg": 31, "wtr": 31, "n": 31}];
+const gapTabs = new Set(["Oct 2025","Nov 2025","Dec 2025","Jan 2026","Feb 2026","May 2026"]);
+const tape = document.getElementById('tape');
+tapeData.forEach((m, mi) => {
+  const col = document.createElement('div');
+  col.className = 'mcol';
+  const ticks = document.createElement('div');
+  ticks.className = 'ticks';
+  m.days.forEach((n, di) => {
+    const t = document.createElement('div');
+    t.className = 'tick n' + n;
+    t.style.animationDelay = (mi * 40 + di * 3) + 'ms';
+    t.title = m.label + ' day ' + (di + 1) + ' — ' + n + ' of 3 fields captured';
+    ticks.appendChild(t);
+  });
+  const lab = document.createElement('div');
+  lab.className = 'mlab' + (gapTabs.has(m.tab) ? ' gap' : '');
+  lab.textContent = m.label;
+  col.appendChild(ticks); col.appendChild(lab);
+  tape.appendChild(col);
+});
+
+/* ---- July chart ---- */
+const jul = [[1, 37, 3169.9], [2, 47, 3228.8], [3, 102, 3954.6], [4, 80, 4265.9], [5, 38, 3473.2], [6, 56, 3346.8], [7, 98, 4458.0], [8, 100, 3906.5], [9, 78, 3508.4], [10, 81, 3222.3], [11, 46, 2713.9], [12, 30, 2354.9], [13, 16, 2881.2], [14, 78, 3763.2], [15, 108, 2045.3], [16, 109, 2048.9], [17, 31, 2072.3], [18, 7, 1912.3], [19, 315, 2061.6], [20, 35, 2157.8], [21, 6, 2271.9], [22, 29, 2329.0], [23, 9, 2061.6], [24, 29, 2157.8], [25, 19, 2271.9], [26, 31, 2329.0], [27, 14, 2277.4], [28, 36, 2174.2], [29, 25, 2412.2], [30, 23, 2070.0], [31, 33, 2164.0]];
+const W=900,H=340,ML=54,MR=54,MT=22,MB=42;
+const iw=W-ML-MR, ih=H-MT-MB;
+const kwhMax=4800, rnsMax=120;
+const x=d=>ML+ (d-1)/30*iw;
+const yk=v=>MT+ih-(v/kwhMax)*ih;
+const yr=v=>MT+ih-(Math.min(v,rnsMax)/rnsMax)*ih;
+let s='';
+// gridlines
+for(let v=0;v<=4800;v+=1200){
+  s+=`<line x1="${ML}" y1="${yk(v)}" x2="${W-MR}" y2="${yk(v)}" stroke="#D2DCD8" stroke-width="1"/>`;
+  s+=`<text x="${ML-9}" y="${yk(v)+4}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#4A605A">${v}</text>`;
+}
+s+=`<text x="${ML-9}" y="${MT-7}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4A605A" letter-spacing="0.08em">kWh</text>`;
+s+=`<text x="${W-MR+9}" y="${MT-7}" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="10" fill="#B8730F" letter-spacing="0.08em">RNS</text>`;
+for(let v=0;v<=120;v+=40){
+  s+=`<text x="${W-MR+9}" y="${yr(v)+4}" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#B8730F">${v}</text>`;
+}
+// shaded excursion window
+s+=`<rect x="${x(1)-6}" y="${MT}" width="${x(14)-x(1)+12}" height="${ih}" fill="#9E2B18" opacity="0.07"/>`;
+s+=`<text x="${x(7)}" y="${MT+16}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#9E2B18" letter-spacing="0.09em">1–14 JUL · AVG 3,446 kWh/DAY</text>`;
+s+=`<text x="${x(23)}" y="${MT+16}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#0B6B58" letter-spacing="0.09em">15–31 JUL · AVG 2,166 kWh/DAY</text>`;
+// step line
+s+=`<line x1="${x(14.5)}" y1="${MT}" x2="${x(14.5)}" y2="${MT+ih}" stroke="#0D1F1B" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+// occupancy bars
+jul.forEach(d=>{
+  const capped=Math.min(d[1],rnsMax);
+  const bw=iw/31*0.52;
+  s+=`<rect x="${x(d[0])-bw/2}" y="${yr(capped)}" width="${bw}" height="${MT+ih-yr(capped)}" fill="#B8730F" opacity="0.28"/>`;
+  if(d[1]>rnsMax){
+    s+=`<text x="${x(d[0])}" y="${MT-4}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="#9E2B18">${d[1]}?</text>`;
+  }
+});
+// kwh line
+let path=jul.map((d,i)=>(i?'L':'M')+x(d[0]).toFixed(1)+' '+yk(d[2]).toFixed(1)).join(' ');
+s+=`<path d="${path}" fill="none" stroke="#0B6B58" stroke-width="2.4" stroke-linejoin="round"/>`;
+jul.forEach(d=>{ s+=`<circle cx="${x(d[0])}" cy="${yk(d[2])}" r="3" fill="#E8EDEB" stroke="#0B6B58" stroke-width="1.8"/>`;});
+// x axis
+s+=`<line x1="${ML}" y1="${MT+ih}" x2="${W-MR}" y2="${MT+ih}" stroke="#0D1F1B" stroke-width="1.5"/>`;
+[1,5,10,15,20,25,31].forEach(d=>{
+  s+=`<text x="${x(d)}" y="${MT+ih+20}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#4A605A">${d}</text>`;
+});
+s+=`<text x="${ML+iw/2}" y="${H-4}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4A605A" letter-spacing="0.1em">JULY 2026 — GREEN LINE: DAILY kWh · AMBER BARS: ROOM NIGHTS SOLD</text>`;
+document.getElementById('chart').innerHTML=s;
+</script>
+</body>
+</html>
