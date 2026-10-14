@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Systems I built — Ivan Cronje</title>
+<link rel="stylesheet" href="_ds/industry-838d6325-4d2f-49b5-ba02-b2d076d4c4a2/styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500&display=swap">
+<style>
+html{scroll-behavior:smooth;background:#0b0c0d}body{margin:0;background:#0b0c0d;color:#f2f2f3;font-family:var(--font-body)}a{color:#f2f2f3;text-decoration:none}a:hover{color:#5980a6}::selection{background:rgba(89,128,166,.35)}
+.mono{font-family:ui-monospace,monospace}.lab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6}
+.wrap{max-width:1100px;margin:0 auto;padding:0 40px}
+.sec{padding:80px 0;border-top:1px solid rgba(242,242,243,.14)}.alt{background:#101214}
+h2{margin:18px 0 0;font-size:clamp(30px,4.4vw,52px);line-height:1;text-transform:uppercase}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);margin-top:34px;border:1px solid rgba(242,242,243,.17);border-right:0;border-bottom:0}
+.flow>div{padding:20px 18px;border-right:1px solid rgba(242,242,243,.17);border-bottom:1px solid rgba(242,242,243,.17)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);margin-top:34px;border:1px solid rgba(242,242,243,.17);border-right:0;border-bottom:0}
+.card{padding:24px 22px;border-right:1px solid rgba(242,242,243,.17);border-bottom:1px solid rgba(242,242,243,.17)}
+.badge{font-size:9px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(89,128,166,.6);padding:4px 9px;color:#5980a6;white-space:nowrap}
+.k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,243,.5);margin-top:12px}
+.v{font-size:13.5px;line-height:1.55;color:rgba(242,242,243,.78);margin-top:4px}
+label{display:block;margin-top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,243,.55)}
+input[type=range]{width:100%;margin-top:8px;accent-color:#5980a6}
+input[type=number]{width:100%;box-sizing:border-box;margin-top:6px;background:#101214;border:1px solid rgba(242,242,243,.25);color:#f2f2f3;padding:9px 10px;font:14px ui-monospace,monospace}
+.demo{display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(242,242,243,.17);margin-top:30px}.demo>div{padding:26px 24px}.demo>div+div{border-left:1px solid rgba(242,242,243,.17)}
+.big{font-family:var(--font-heading);font-size:56px;line-height:1;color:#5980a6}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px 8px;text-align:right;border-bottom:1px solid rgba(242,242,243,.14)}th:first-child,td:first-child{text-align:left}th{font:9.5px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,243,.55);cursor:pointer;white-space:nowrap}th:hover{color:#5980a6}
+tfoot td{font-weight:700;border-top:1px solid rgba(242,242,243,.4);color:#5980a6}
+.btn{display:inline-block;font:10.5px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#5980a6;border:1px solid rgba(89,128,166,.6);padding:10px 16px;background:none;cursor:pointer}
+@media(max-width:900px){.flow{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.flow,.cards{grid-template-columns:1fr}.demo{grid-template-columns:1fr}.demo>div+div{border-left:0;border-top:1px solid rgba(242,242,243,.17)}.wrap{padding:0 22px}h1{font-size:46px!important}.scroll{overflow-x:auto}}
+</style></head><body>
+<div style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:0 34px;height:60px;background:rgba(11,12,13,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(242,242,243,.14)"><div style="display:flex;align-items:center;gap:13px"><span style="font-family:var(--font-heading);font-size:20px;letter-spacing:.07em">IVAN CRONJE</span><span style="font-family:'Noto Serif JP',serif;font-weight:300;font-size:12px;color:#5980a6">仕組み</span></div><a class="mono" href="index.html" style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.66)">&larr; Portfolio</a></div>
+
+<section style="padding:100px 0 60px"><div class="wrap"><div class="lab">仕組み · Systems</div>
+<h1 style="margin:20px 0 0;font-size:clamp(52px,8.6vw,110px);line-height:.93;text-transform:uppercase">Systems I <span style="color:#5980a6">built</span></h1>
+<p style="margin:28px 0 0;max-width:60ch;font-size:19px;line-height:1.65;color:rgba(242,242,243,.82)">Every one of these was built in-house, with spreadsheets, code and discipline, at zero licence cost. Each closes one gap I found when a department could not see what was happening. Together they form one loop, from a request arriving to a decision being made.</p></div></section>
+
+<section class="sec alt"><div class="wrap"><div class="lab">How they connect</div><h2>One loop, eight steps</h2>
+<div class="flow">
+<div><div class="mono lab">01 Request</div><div class="v">Every request becomes a jobcard with a reference number.</div></div>
+<div><div class="mono lab">02 Prioritise</div><div class="v">Priority Index scores it. The system decides the order, not the loudest voice.</div></div>
+<div><div class="mono lab">03 Plan</div><div class="v">PM programme, AC filter cycle and daily checklist packs schedule the planned work.</div></div>
+<div><div class="mono lab">04 Do</div><div class="v">Technicians work by priority and by zone, in buddy pairs.</div></div>
+<div><div class="mono lab">05 Close the loop</div><div class="v">Guest follow-up tracker. A job is finished when the guest confirms.</div></div>
+<div><div class="mono lab">06 Inspect</div><div class="v">Room maintenance index and the facilities audit find what nobody reported.</div></div>
+<div><div class="mono lab">07 Measure</div><div class="v">Performance tracker, utilities and energy dashboards turn work into numbers.</div></div>
+<div><div class="mono lab">08 Decide</div><div class="v">Budget and capital calculator turn the numbers into investment decisions.</div></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="lab">The systems</div><h2>What each one does</h2>
+<div class="cards" id="cards"></div></div></section>
+
+<section class="sec alt"><div class="wrap"><div class="lab">Try it</div><h2>Priority Index, simplified</h2>
+<p style="margin:20px 0 0;max-width:62ch;font-size:15.5px;line-height:1.7;color:rgba(242,242,243,.8)">Score a job on what it threatens, then watch the age escalation raise it automatically. The full system lives on a settings sheet in a workbook; this is a simplified demonstration, so the weights here are illustrative and the bands are not the real thresholds.</p>
+<div class="demo">
+<div>
+<label style="margin-top:0">Revenue impact <b id="o1" class="mono">5</b></label><input type="range" id="f1" min="0" max="10" value="5">
+<label>Failure severity <b id="o2" class="mono">5</b></label><input type="range" id="f2" min="0" max="10" value="5">
+<label>Safety risk <b id="o3" class="mono">5</b></label><input type="range" id="f3" min="0" max="10" value="5">
+<label>Operational impact <b id="o4" class="mono">5</b></label><input type="range" id="f4" min="0" max="10" value="5">
+<label>Guest experience <b id="o5" class="mono">5</b></label><input type="range" id="f5" min="0" max="10" value="5">
+<label>Job complexity (reduces the score) <b id="o6" class="mono">3</b></label><input type="range" id="f6" min="0" max="10" value="3">
+<label>Days the job has been open <b id="o7" class="mono">0</b></label><input type="range" id="f7" min="0" max="90" value="0">
+</div>
+<div>
+<div class="mono lab">Base score</div><div class="big" id="base">0</div>
+<div class="mono lab" style="margin-top:22px">Time factor</div><div class="big" id="tf" style="font-size:40px">1.0×</div>
+<div class="mono lab" style="margin-top:22px">Priority after escalation</div><div class="big" id="eff" style="font-size:40px">0</div>
+<div id="band" style="margin-top:22px;font-family:var(--font-heading);font-size:26px;text-transform:uppercase"></div>
+<div class="v" id="bandnote"></div>
+<div class="v" style="margin-top:18px;color:rgba(242,242,243,.55)">Time factor = 1 + days open ÷ 30, capped at 3×. Every day a job stays open, its priority rises on its own.</div>
+</div></div></div></section>
+
+<section class="sec"><div class="wrap"><div class="lab">Try it</div><h2>Technician performance tracker</h2>
+<p style="margin:20px 0 0;max-width:62ch;font-size:15.5px;line-height:1.7;color:rgba(242,242,243,.8)">The tracker I use to see each technician's output over a period: planned work done, response and completion times, and guest impact. <b>This demo uses made-up people and made-up numbers.</b> Click a column to sort, edit any value, and download the result.</p>
+<div class="scroll" style="margin-top:30px;border:1px solid rgba(242,242,243,.17);padding:10px 14px"><table id="trk"><thead></thead><tbody></tbody><tfoot></tfoot></table></div>
+<div style="margin-top:20px"><button class="btn" id="dl">&darr; Download as CSV</button> <span class="mono" style="font-size:10px;letter-spacing:.12em;color:rgba(242,242,243,.5);margin-left:12px">SAMPLE DATA · CONCEPT DEMONSTRATION</span></div>
+</div></section>
+
+<section style="padding:70px 0;border-top:1px solid rgba(242,242,243,.14);text-align:center"><div class="wrap"><div style="font-family:var(--font-heading);font-size:clamp(24px,3.4vw,40px);text-transform:uppercase;line-height:1.2">A system is only worth building if <span style="color:#5980a6">the team will use it.</span></div>
+<div style="margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn" href="lab.html">Capital calculator &rarr;</a><a class="btn" href="index.html#projects">Working library &rarr;</a><a class="btn" href="index.html#contact" style="color:#f2f2f3;border-color:rgba(242,242,243,.4)">Get in touch</a></div></div></section>
+<div class="mono" style="display:flex;justify-content:space-between;padding:26px 40px;border-top:1px solid rgba(242,242,243,.14);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,242,243,.5)"><span>Ivan Cronje — Hospitality Engineering Leader</span><span style="color:#5980a6">整備・規律・記録</span></div>
+
+<script>
+var S=[
+["Priority Index (IPS)","Completed","Work was done by whoever shouted loudest, and nothing recorded its age.","Scores every job on revenue, severity, safety, operations and guest impact, escalates it as it ages, and bumps jobs on critical assets. Tracks backlog, asset health and the ten lowest-health assets.","Excel workbook: settings sheet, work order register, asset register"],
+["Preventive Maintenance Programme","In progress","No schedule, no proof that planned work was done.","184 tasks and 915 planned visits over twelve months, a job list by month, a room-by-room register for 110 rooms and a 52-week log.","Excel workbook"],
+["Daily Technician Checklist Packs","Completed","Critical systems were only looked at when they failed.","Seven daily packs and a storm check. Same core rounds every day, a focus system and a property block that rotate, so everything is walked weekly.","Controlled documents tied to SOPs"],
+["Guest Follow-Up Tracker","Completed","A job closed when the technician walked away.","Logs every guest-reported job, tracks the follow-up, and scores each technician on jobs, follow-up percentage and guests not happy.","Excel workbook with a printable clipboard sheet"],
+["Room Maintenance Inspection Report","Completed","Defects in rooms were found by guests first.","An interactive report: pass rates by section, room scores, a defect log, and a plain-language headline of what matters most.","HTML and Chart.js"],
+["Facilities Audit","Completed","No objective condition baseline.","147 line items across 15 areas rated 1 to 5, scored per area and overall, with priorities and estimated cost.","Excel workbook with a live dashboard"],
+["Utilities and Energy Analytics","In progress","Bills were paid, not analysed.","Rebuilt utilities tracking with data-integrity fixes, regression, CUSUM deviation and municipal bill reconciliation. An energy dashboard separates base load and tracks intensity.","Excel and Python"],
+["AC Filter Full Cycle Plan","In progress","A hundred and sixty units and no record of which were done.","Every room and every split unit on one cycle, in three batches, with a master register showing what has never been serviced.","Excel workbook, printable batch packs"],
+["Maintenance Budget 2027","Proposal","Budget lines without a link to the assets behind them.","A twelve-month budget for 110 rooms with a contingency, price escalation, year-to-date tracking and cost per room.","Excel workbook"],
+["Hot Water Plant Training Simulation","Completed","New plant that the team had never used.","An interactive simulation of the heat pump and accumulator system: sequencing, setpoints, fault symptoms and safe isolation, learned before touching live plant.","HTML and JavaScript"],
+["Technician Performance Tracker","Concept","Output was anecdote, not data.","Per-technician activity over a period: planned work, response and completion times, items reported, urgent calls and guest complaints.","React"],
+["Capital Investment Calculator","Concept","Repair-or-replace decided on the quote alone.","Compares two options on equivalent annual cost with every assumption visible.","HTML and JavaScript"]
+];
+var c=document.getElementById("cards");
+c.innerHTML=S.map(function(s){return '<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="mono badge">'+s[1]+'</span></div><div style="margin-top:14px;font-family:var(--font-heading);font-size:23px;line-height:1.1;text-transform:uppercase">'+s[0]+'</div><div class="k mono">The gap</div><div class="v">'+s[2]+'</div><div class="k mono">What it does</div><div class="v">'+s[3]+'</div><div class="k mono">Built with</div><div class="v">'+s[4]+'</div></div>'}).join("");
+
+// priority demo
+var bands=[[90,"P1 · Emergency","Attend immediately"],[75,"P2 · Urgent","Same shift"],[60,"P3 · High","Same day"],[40,"P4 · Standard","This week"],[25,"P5 · Planned","Plan it in"],[10,"P6 · Scheduled","Schedule it"],[0,"P7 · Cosmetic","Future work"]];
+function pr(){
+ var v=[1,2,3,4,5,6,7].map(function(i){var e=document.getElementById("f"+i);document.getElementById("o"+i).textContent=e.value;return parseFloat(e.value)});
+ var base=Math.max(0,Math.min(100,(v[0]+v[1]+v[2]+v[3]+v[4])/5*10-v[5]*2));
+ var tf=Math.min(3,1+v[6]/30), eff=base*tf, eb=Math.min(100,eff);
+ var b=bands.filter(function(x){return eb>=x[0]})[0];
+ document.getElementById("base").textContent=Math.round(base);
+ document.getElementById("tf").textContent=tf.toFixed(1)+"×";
+ document.getElementById("eff").textContent=Math.round(eff);
+ document.getElementById("band").textContent=b[1];
+ document.getElementById("bandnote").textContent=b[2]+(tf>1?" — raised by age.":"");
+}
+for(var i=1;i<=7;i++)document.getElementById("f"+i).addEventListener("input",pr);pr();
+
+// tracker demo (sample data)
+var cols=[["name","Technician","t"],["acService","AC services"],["pmChecks","PM checks"],["rmi","Rooms inspected"],["daysNoShift","Days off shift"],["avgResponseTime","Avg response (min)"],["itemsAttended","Items attended"],["avgCompletionTime","Avg completion (min)"],["itemsReported","Items reported"],["guestComplaints","Guest complaints"],["urgentCalls","Urgent calls"]];
+var D=[
+{name:"Technician A",acService:10,pmChecks:4,rmi:10,daysNoShift:9,avgResponseTime:15,itemsAttended:24,avgCompletionTime:45,itemsReported:2,guestComplaints:0,urgentCalls:3},
+{name:"Technician B",acService:2,pmChecks:3,rmi:29,daysNoShift:7,avgResponseTime:25,itemsAttended:34,avgCompletionTime:55,itemsReported:1,guestComplaints:1,urgentCalls:4},
+{name:"Technician C",acService:6,pmChecks:8,rmi:14,daysNoShift:8,avgResponseTime:12,itemsAttended:29,avgCompletionTime:38,itemsReported:4,guestComplaints:0,urgentCalls:2},
+{name:"Technician D",acService:4,pmChecks:6,rmi:18,daysNoShift:6,avgResponseTime:18,itemsAttended:31,avgCompletionTime:42,itemsReported:3,guestComplaints:0,urgentCalls:5}];
+var sk=null,sd=1;
+function render(){
+ var th="<tr>"+cols.map(function(c){return '<th data-k="'+c[0]+'">'+c[1]+'</th>'}).join("")+"</tr>";
+ document.querySelector("#trk thead").innerHTML=th;
+ var rows=D.slice(); if(sk)rows.sort(function(a,b){return (typeof a[sk]==="string"?a[sk].localeCompare(b[sk]):a[sk]-b[sk])*sd});
+ document.querySelector("#trk tbody").innerHTML=rows.map(function(r){var i=D.indexOf(r);return "<tr>"+cols.map(function(c){return c[2]?"<td>"+r[c[0]]+"</td>":'<td><input type="number" data-i="'+i+'" data-k="'+c[0]+'" value="'+r[c[0]]+'" min="0" style="width:70px;text-align:right"></td>'}).join("")+"</tr>"}).join("");
+ var tot=cols.slice(1).map(function(c){var s=D.reduce(function(a,r){return a+r[c[0]]},0);return /avg/i.test(c[0])?(s/D.length).toFixed(0):s});
+ document.querySelector("#trk tfoot").innerHTML="<tr><td>Team</td>"+tot.map(function(t){return "<td>"+t+"</td>"}).join("")+"</tr>";
+ document.querySelectorAll("#trk th").forEach(function(h){h.onclick=function(){var k=h.getAttribute("data-k");sd=(sk===k)?-sd:1;sk=k;render()}});
+ document.querySelectorAll("#trk input").forEach(function(e){e.oninput=function(){D[+e.getAttribute("data-i")][e.getAttribute("data-k")]=parseFloat(e.value)||0;var f=e;var tf=document.querySelector("#trk tfoot");var tot=cols.slice(1).map(function(c){var s=D.reduce(function(a,r){return a+r[c[0]]},0);return /avg/i.test(c[0])?(s/D.length).toFixed(0):s});tf.innerHTML="<tr><td>Team</td>"+tot.map(function(t){return "<td>"+t+"</td>"}).join("")+"</tr>"}});
+}
+render();
+document.getElementById("dl").onclick=function(){
+ var csv=cols.map(function(c){return c[1]}).join(",")+"\n"+D.map(function(r){return cols.map(function(c){return r[c[0]]}).join(",")}).join("\n");
+ var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="sample-performance-tracker.csv";document.body.appendChild(a);a.click();document.body.removeChild(a);
+};
+</script>
+</body></html>
