@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Risk matrix scorer — Ivan Cronje</title>
+<style>
+*{box-sizing:border-box}html{background:#0b0c0d}body{margin:0;background:#0b0c0d;color:#f2f2f3;font-family:"Segoe UI",system-ui,Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.mono,.lab,button,select,input,th{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.lab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6}
+h1{margin:14px 0 0;font-size:clamp(36px,5.5vw,68px);line-height:1;text-transform:uppercase;font-family:Bahnschrift,"Arial Narrow",sans-serif}.lead{margin:14px 0 26px;max-width:72ch;line-height:1.6;color:rgba(242,242,243,.78)}
+.top{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:30px;align-items:start}
+.matrix{display:grid;grid-template-columns:34px repeat(5,1fr);gap:3px}.matrix div{display:flex;align-items:center;justify-content:center;min-height:54px;font:12px ui-monospace,monospace;color:#0b0c0d;position:relative}
+.matrix .ax{background:transparent;color:rgba(242,242,243,.6);min-height:20px;font-size:10px}.matrix .cellm b{font-size:15px}.matrix .cellm i{position:absolute;right:4px;top:3px;font-style:normal;font-size:10px;background:#0b0c0d;color:#f2f2f3;border-radius:9px;padding:1px 6px;min-width:16px;text-align:center}
+.cap{margin-top:8px;font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.5)}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(242,242,243,.17);border-right:0}.sum div{padding:16px 14px;border-right:1px solid rgba(242,242,243,.17)}.sum b{display:block;font-size:30px;font-family:Bahnschrift,sans-serif;font-weight:400}.sum span{font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6)}
+.low{background:#a5d6a7}.med{background:#fff176}.high{background:#ffb74d}.crit{background:#e57373}
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:13px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6);text-align:left;padding:8px 6px;border-bottom:1px solid rgba(242,242,243,.25)}td{padding:7px 6px;border-bottom:1px solid rgba(242,242,243,.12);vertical-align:middle}
+td input[type=text]{width:100%;background:#101214;border:1px solid rgba(242,242,243,.2);color:#f2f2f3;padding:7px 8px;font-size:12px}td select{background:#101214;border:1px solid rgba(242,242,243,.2);color:#f2f2f3;padding:6px;font-size:12px}
+.pill{display:inline-block;min-width:58px;text-align:center;padding:4px 8px;color:#0b0c0d;font:11px ui-monospace,monospace}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}button,.btnl{background:transparent;color:#8fb3d6;border:1px solid rgba(143,179,214,.5);padding:10px 14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none}button:hover,.btnl:hover{background:#8fb3d6;color:#0b0c0d}
+.x{background:none;border:0;color:rgba(242,242,243,.5);font-size:16px;padding:2px 8px}.note{margin:34px 0 60px;font:11px/1.6 ui-monospace,monospace;color:rgba(242,242,243,.55);max-width:100ch}
+.scroll{overflow-x:auto}@media(max-width:860px){.top{grid-template-columns:1fr}.wrap{padding:0 14px}.sum{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<div id="site-nav" data-parent="lab" data-title="Risk matrix scorer"><noscript><a href="index.html" style="color:#f2f2f3;padding:14px;display:block">&larr; Portfolio</a></noscript></div>
+<script src="nav.js"></script>
+<div class="wrap" style="padding-top:44px"><div class="lab">Lab · Tool</div><h1>Risk matrix <span style="color:#5980a6">scorer</span></h1>
+<p class="lead">Score hazards on the 5 by 5 matrix used in the risk assessment sheet: likelihood times severity, before and after controls. Add your own hazards, and the matrix and the totals update as you change them. The four starting rows are examples only.</p>
+<div class="top"><div><div class="matrix" id="mx"></div><div class="cap">Rows: likelihood (5 at the top) · Columns: severity · Badge: hazards in that cell (current risk)</div></div>
+<div><div class="sum" id="sum"></div><div class="btns"><button id="add">+ Add hazard</button><button id="csv">&darr; Export CSV</button><button id="reset">Reset examples</button><a class="btnl" href="wb-risk-assessment.html">Open the full workbook &rarr;</a></div>
+<p class="cap" style="margin-top:16px;line-height:1.7">1–4 Low: monitor · 5–9 Medium: add controls · 10–16 High: immediate action, senior attention · 17–25 Critical: stop the activity until reduced</p></div></div>
+<div class="scroll"><table><thead><tr><th>Hazard</th><th>L</th><th>S</th><th>Risk</th><th>Controls to add</th><th>Res. L</th><th>Res. S</th><th>Residual</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="note">Runs in your browser. Nothing is saved or sent. Likelihood and severity scales follow the sheet: 1 rare to 5 almost certain, and 1 minimal to 5 catastrophic. Scoring is a structured judgement, not a measurement, so the numbers are only as good as the thinking behind them.</p></div>
+<script>
+(function(){
+var EX=[{h:"Wet floor at the kitchen pass",l:4,s:3,c:"Non-slip matting and a spill routine",rl:2,rs:3},{h:"Unguarded laundry press",l:3,s:5,c:"Guards and an emergency stop",rl:1,rs:5},{h:"Gas leak at the cooking line",l:2,s:5,c:"Detection and automatic shut-off",rl:1,rs:5},{h:"Ladder use without a second person",l:3,s:4,c:"Two-person rule and inspected ladders",rl:2,rs:4}];
+var rows=JSON.parse(JSON.stringify(EX));
+function band(n){return n>=17?["crit","Critical"]:n>=10?["high","High"]:n>=5?["med","Medium"]:["low","Low"]}
+function opts(v){var o="";for(var i=1;i<=5;i++)o+='<option'+(i==v?" selected":"")+'>'+i+'</option>';return o}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+function draw(){
+  var mx="",cnt={};rows.forEach(function(r){var k=r.l+","+r.s;cnt[k]=(cnt[k]||0)+1});
+  for(var l=5;l>=1;l--){mx+='<div class="ax">'+l+'</div>';for(var s=1;s<=5;s++){var sc=l*s,b=band(sc)[0],n=cnt[l+","+s];mx+='<div class="cellm '+b+'"><b>'+sc+'</b>'+(n?'<i>'+n+'</i>':"")+'</div>'}}
+  mx+='<div class="ax"></div>';for(s=1;s<=5;s++)mx+='<div class="ax">S'+s+'</div>';document.getElementById("mx").innerHTML=mx;
+  var c={Low:0,Medium:0,High:0,Critical:0};rows.forEach(function(r){c[band(r.l*r.s)[1]]++});
+  var rc={Low:0,Medium:0,High:0,Critical:0};rows.forEach(function(r){rc[band(r.rl*r.rs)[1]]++});
+  document.getElementById("sum").innerHTML=["Critical","High","Medium","Low"].map(function(k){var cl=band({Critical:20,High:12,Medium:6,Low:2}[k])[0];return '<div><b>'+c[k]+'</b><span><i class="pill '+cl+'" style="min-width:0;padding:1px 6px;font-style:normal">'+k+'</i> now · '+rc[k]+' after</span></div>'}).join("");
+  document.getElementById("tb").innerHTML=rows.map(function(r,i){var a=band(r.l*r.s),b=band(r.rl*r.rs);return '<tr><td><input type="text" data-i="'+i+'" data-k="h" value="'+esc(r.h)+'"></td><td><select data-i="'+i+'" data-k="l">'+opts(r.l)+'</select></td><td><select data-i="'+i+'" data-k="s">'+opts(r.s)+'</select></td><td><span class="pill '+a[0]+'">'+r.l*r.s+' '+a[1]+'</span></td><td><input type="text" data-i="'+i+'" data-k="c" value="'+esc(r.c)+'"></td><td><select data-i="'+i+'" data-k="rl">'+opts(r.rl)+'</select></td><td><select data-i="'+i+'" data-k="rs">'+opts(r.rs)+'</select></td><td><span class="pill '+b[0]+'">'+r.rl*r.rs+' '+b[1]+'</span></td><td><button class="x" data-del="'+i+'" title="Remove">&times;</button></td></tr>'}).join("");
+}
+document.getElementById("tb").addEventListener("change",function(e){var t=e.target,i=t.getAttribute("data-i");if(i===null)return;var k=t.getAttribute("data-k");rows[i][k]=(k==="h"||k==="c")?t.value:+t.value;if(k==="h"||k==="c")return;draw()});
+document.getElementById("tb").addEventListener("click",function(e){var d=e.target.getAttribute("data-del");if(d!==null){rows.splice(+d,1);draw()}});
+document.getElementById("add").onclick=function(){rows.push({h:"New hazard",l:3,s:3,c:"",rl:2,rs:3});draw()};
+document.getElementById("reset").onclick=function(){rows=JSON.parse(JSON.stringify(EX));draw()};
+document.getElementById("csv").onclick=function(){var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'};var t="Hazard,Likelihood,Severity,Risk,Rating,Controls,Residual L,Residual S,Residual,Residual rating\n"+rows.map(function(r){return [q(r.h),r.l,r.s,r.l*r.s,band(r.l*r.s)[1],q(r.c),r.rl,r.rs,r.rl*r.rs,band(r.rl*r.rs)[1]].join(",")}).join("\n");var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="risk-register.csv";document.body.appendChild(a);a.click();a.remove()};
+draw();
+})();
+</script></body></html>

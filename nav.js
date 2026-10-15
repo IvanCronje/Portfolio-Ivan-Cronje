@@ -6,7 +6,7 @@
     { k: "home", t: "Portfolio", h: "index.html" },
     { k: "systems", t: "Systems", h: "systems.html" },
     { k: "lab", t: "Lab", h: "lab.html" },
-    { k: "library", t: "Library", h: "index.html#library" },
+    { k: "library", t: "Library", h: "library.html" },
     { k: "stories", t: "Stories", h: "stories.html" },
     { k: "vision", t: "Vision", h: "vision.html" },
     { k: "philosophy", t: "Philosophy", h: "philosophy.html" }
@@ -32,9 +32,10 @@
   }).join("");
   var html = '<nav class="bar" aria-label="Site"><a class="logo" href="index.html">IVAN CRONJE</a><div class="links">' + links +
     '</div><a class="cta" href="index.html#contact">Get in touch</a></nav>';
-  if (parent === "library") {
+  var PAR = { library: ["Working library", "library.html"], lab: ["Lab", "lab.html"] };
+  if (PAR[parent]) {
     var title = host.getAttribute("data-title") || document.title.split(/\s[—|-]\s/)[0];
-    html += '<div class="crumb"><a href="index.html">Portfolio</a><i>/</i><a href="index.html#library">Working library</a><i>/</i>' +
+    html += '<div class="crumb"><a href="index.html">Portfolio</a><i>/</i><a href="' + PAR[parent][1] + '">' + PAR[parent][0] + '</a><i>/</i>' +
       title.replace(/</g, "&lt;") + "</div>";
   }
   host.innerHTML = html;
