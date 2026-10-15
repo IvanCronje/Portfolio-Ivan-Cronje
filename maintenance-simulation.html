@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Maintenance strategy simulation — Ivan Cronje</title>
+<style>
+*{box-sizing:border-box}html{background:#0b0c0d}body{margin:0;background:#0b0c0d;color:#f2f2f3;font-family:"Segoe UI",system-ui,Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.mono,.lab,button,select,input,th,td.m{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.lab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6}
+h1{margin:14px 0 0;font-size:clamp(36px,5.5vw,68px);line-height:1;text-transform:uppercase;font-family:Bahnschrift,"Arial Narrow",sans-serif}.lead{margin:14px 0 26px;max-width:72ch;line-height:1.6;color:rgba(242,242,243,.78)}
+.top{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:30px;align-items:start}
+.panel{border:1px solid rgba(242,242,243,.17);padding:18px 18px 22px}
+label{display:block;margin-top:14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6)}label b{color:#f2f2f3;float:right;font-weight:600}
+input[type=range]{width:100%;margin-top:8px;accent-color:#5980a6}select,input[type=number]{width:100%;margin-top:6px;background:#101214;border:1px solid rgba(242,242,243,.25);color:#f2f2f3;padding:8px;font-size:13px}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(242,242,243,.17);border-right:0}.sum div{padding:16px 14px;border-right:1px solid rgba(242,242,243,.17)}.sum b{display:block;font-size:28px;font-family:Bahnschrift,sans-serif;font-weight:600;color:#5980a6}.sum span{font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.55)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}button{background:transparent;color:#8fb3d6;border:1px solid rgba(143,179,214,.5);padding:10px 14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}button:hover{background:rgba(143,179,214,.1)}
+table{width:100%;border-collapse:collapse;margin-top:22px;font-size:13px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6);text-align:right;padding:8px 6px;border-bottom:1px solid rgba(242,242,243,.25)}th:first-child,td:first-child{text-align:left}td{padding:9px 6px;border-bottom:1px solid rgba(242,242,243,.12);text-align:right}
+canvas{width:100%;display:block;border:1px solid rgba(242,242,243,.17);background:#0f1113;margin-top:22px}
+.verdict{margin-top:20px;padding:14px 16px;border-left:3px solid #5980a6;background:#101214;line-height:1.6;color:rgba(242,242,243,.88);max-width:80ch}
+.badge{display:inline-block;border:1px solid rgba(89,128,166,.6);padding:4px 10px;font:10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#5980a6}
+.note{margin:34px 0 60px;font:11px/1.65 ui-monospace,monospace;color:rgba(242,242,243,.55);max-width:100ch}.cap{margin-top:8px;font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.5)}
+.scroll{overflow-x:auto}.ok{color:#8fd19e}.bad{color:#e57373}.warn{color:#ffb74d}
+@media(max-width:860px){.top{grid-template-columns:1fr}.wrap{padding:0 14px}.sum{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<div id="site-nav" data-parent="lab" data-title="Maintenance strategy simulation"><noscript><a href="index.html" style="color:#f2f2f3;padding:14px;display:block">&larr; Portfolio</a></noscript></div>
+<script src="nav.js"></script>
+<div class="wrap" style="padding-top:44px"><div class="lab">Lab · Simulation</div><h1>Run to failure <span style="color:#5980a6">versus planned</span></h1>
+<p class="lead">Simulate a set of identical assets over five years under three strategies: fix them when they break, service them on a fixed interval, or monitor condition and step in just before a failure. It shows how the answer depends on how assets fail and what a failure costs.</p><div style="margin:-8px 0 26px"><span class="badge">Concept · illustrative inputs, not validated against measured data</span></div>
+<div class="top"><div class="panel">
+<label style="margin-top:0">Number of similar assets <b id="o1">20</b></label><input type="range" id="n" min="5" max="100" value="20">
+<label>Failure pattern (wear-out strength) <b id="o2">3.0</b></label><input type="range" id="beta" min="1" max="5" step="0.1" value="3">
+<label>Typical life before failure <b id="o3">700 days</b></label><input type="range" id="eta" min="200" max="2000" step="50" value="700">
+<label>Preventive service every <b id="o4">400 days</b></label><input type="range" id="T" min="60" max="1200" step="20" value="400">
+<label>Predictive monitoring catches <b id="o5">80 %</b></label><input type="range" id="pd" min="0" max="100" step="5" value="80">
+<label>Cost of a failure (R) <b id="o6">20 000</b></label><input type="range" id="cf" min="2000" max="100000" step="1000" value="20000">
+<label>Cost of a planned service (R) <b id="o7">4 000</b></label><input type="range" id="cp" min="500" max="30000" step="500" value="4000">
+<label>Lost revenue per day of failure (R) <b id="o8">2 000</b></label><input type="range" id="rv" min="0" max="20000" step="500" value="2000">
+<label>Days out of service after a failure <b id="o9">3</b></label><input type="range" id="df" min="0.5" max="14" step="0.5" value="3">
+<label>Monitoring cost per asset per year (R) <b id="o10">600</b></label><input type="range" id="mc" min="0" max="5000" step="100" value="600">
+<div class="btns"><button id="rerun">New random run</button><button id="best">Find the best service interval</button></div>
+</div><div>
+<div class="sum" id="sum"></div>
+<canvas id="cv" width="900" height="300"></canvas><div class="cap">Average total cost over five years, per strategy. Planned work shown in blue, failures in red.</div>
+<div class="scroll"><table><thead><tr><th>Strategy</th><th>Total cost</th><th>Failures</th><th>Days out of service</th><th>Planned share of work</th></tr></thead><tbody id="tb"></tbody></table></div>
+<div class="verdict" id="vd"></div>
+</div></div>
+<p class="note">Model: each asset fails after a random time drawn from a Weibull distribution (a wear-out pattern above 1 means older means likelier to fail; 1 means failures are purely random). A planned service or intervention renews the asset to as-good-as-new. Planned work is assumed to be scheduled into quiet periods, so only failures carry lost revenue. Predictive monitoring is assumed to catch the stated share of failures 14 days ahead and to cost a fixed amount per asset per year. All inputs are illustrative: replace them with your own failure history and costs before using any result. 300 random runs per strategy, repeatable. Runs in your browser; nothing is saved or sent.</p></div>
+<script>
+
+var HOR=1825,RUNS=300,seed=1;
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function weib(r,b,e){return e*Math.pow(-Math.log(1-r()),1/b)}
+function sim(p,strat,sd){
+  var r=rng(sd),fail=0,plan=0,down=0,cost=0;
+  for(var run=0;run<RUNS;run++){for(var a=0;a<p.n;a++){var t=0;
+    while(t<HOR){var f=weib(r,p.beta,p.eta);
+      if(strat==="reactive"){t+=f;if(t<HOR){fail++;down+=p.df}}
+      else if(strat==="preventive"){if(f<p.T){t+=f;if(t<HOR){fail++;down+=p.df}}else{t+=p.T;if(t<HOR){plan++;down+=0.5}}}
+      else{ if(r()<p.pd/100){t+=Math.max(1,f-14);if(t<HOR){plan++;down+=0.5}}else{t+=f;if(t<HOR){fail++;down+=p.df}}}
+    }}}
+  var d=RUNS;fail/=d;plan/=d;down/=d;
+  cost=fail*(p.cf+0)+plan*p.cp+down*0; 
+  /* revenue loss only for failures; planned work is scheduled into low-occupancy windows */
+  var rev=fail*p.df*p.rv; cost+=rev;
+  if(strat==="predictive")cost+=p.mc*p.n*(HOR/365);
+  return {cost:cost,fail:fail,plan:plan,down:down,rev:rev,share:(fail+plan)?plan/(fail+plan):0};
+}
+function $(i){return document.getElementById(i)}
+function fmt(n){return "R"+Math.round(n).toLocaleString("en-ZA").replace(/,/g," ")}
+function read(){return {n:+$("n").value,beta:+$("beta").value,eta:+$("eta").value,T:+$("T").value,pd:+$("pd").value,cf:+$("cf").value,cp:+$("cp").value,rv:+$("rv").value,df:+$("df").value,mc:+$("mc").value}}
+function labels(){var m={n:1,beta:2,eta:3,T:4,pd:5,cf:6,cp:7,rv:8,df:9,mc:10},u={n:"",beta:"",eta:" days",T:" days",pd:" %",cf:"",cp:"",rv:"",df:"",mc:""};for(var k in m){var v=$(k).value;if(["cf","cp","rv","mc"].indexOf(k)>=0)v=(+v).toLocaleString("en-ZA").replace(/,/g," ");$("o"+m[k]).textContent=v+u[k]}}
+function run(){
+  labels();var p=read();
+  var R=[["Run to failure",sim(p,"reactive",seed)],["Preventive, every "+p.T+" days",sim(p,"preventive",seed+1)],["Predictive monitoring",sim(p,"predictive",seed+2)]];
+  $("tb").innerHTML=R.map(function(x){var s=x[1];return "<tr><td>"+x[0]+"</td><td>"+fmt(s.cost)+"</td><td>"+s.fail.toFixed(1)+"</td><td>"+s.down.toFixed(1)+"</td><td>"+(s.share*100).toFixed(0)+"%</td></tr>"}).join("");
+  var best=R.reduce(function(a,b){return b[1].cost<a[1].cost?b:a});
+  $("sum").innerHTML=R.map(function(x){return "<div><b"+(x===best?' class="ok"':"")+">"+fmt(x[1].cost/1000).replace("R","R")+"k</b><span>"+x[0].split(",")[0]+"</span></div>"}).join("")+"<div><b>"+(R[0][1].fail-R[2][1].fail).toFixed(0)+"</b><span>Failures avoided (predictive)</span></div>";
+  var c=$("cv"),g=c.getContext("2d"),W=c.width,H=c.height;g.clearRect(0,0,W,H);
+  var mx=Math.max.apply(null,R.map(function(x){return x[1].cost}))*1.12||1,pad=40,bw=130,gap=(W-pad*2-3*bw)/2;
+  R.forEach(function(x,i){var s=x[1],X=pad+i*(bw+gap),hp=(s.cost-s.rev-s.fail*p.cf)/mx*(H-70),hf=(s.rev+s.fail*p.cf)/mx*(H-70);
+    g.fillStyle="#5980a6";g.fillRect(X,H-30-hp,bw,hp);g.fillStyle="#e57373";g.fillRect(X,H-30-hp-hf,bw,hf);
+    g.fillStyle="rgba(242,242,243,.8)";g.font="12px ui-monospace,monospace";g.fillText(x[0].split(",")[0],X,H-10);g.fillText(fmt(s.cost/1000)+"k",X,H-36-hp-hf)});
+  var pv=(R[0][1].cost-best[1].cost);
+  $("vd").innerHTML=best===R[0]?"On these inputs, running to failure is the cheapest. That happens when failures are random (a low failure pattern value), failure costs are small or service is expensive. Move the sliders to see what changes it.":"On these inputs, <b>"+best[0].split(",")[0].toLowerCase()+"</b> is cheapest, saving about "+fmt(pv)+" over five years against running to failure. Most of the difference is failures, and the lost days that come with them.";
+}
+["n","beta","eta","T","pd","cf","cp","rv","df","mc"].forEach(function(i){$(i).addEventListener("input",run)});
+$("rerun").onclick=function(){seed+=100;run()};
+$("best").onclick=function(){var p=read(),bt=null,bc=1e18;for(var T=60;T<=1200;T+=20){p.T=T;var s=sim(p,"preventive",seed+1);if(s.cost<bc){bc=s.cost;bt=T}}$("T").value=bt;run();$("vd").innerHTML+=" The preventive interval that minimises cost on these inputs is about <b>"+bt+" days</b>."};
+run();
+
+</script></body></html>

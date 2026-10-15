@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Roster cover simulation — Ivan Cronje</title>
+<style>
+*{box-sizing:border-box}html{background:#0b0c0d}body{margin:0;background:#0b0c0d;color:#f2f2f3;font-family:"Segoe UI",system-ui,Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.mono,.lab,button,select,input,th,td.m{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.lab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6}
+h1{margin:14px 0 0;font-size:clamp(36px,5.5vw,68px);line-height:1;text-transform:uppercase;font-family:Bahnschrift,"Arial Narrow",sans-serif}.lead{margin:14px 0 26px;max-width:72ch;line-height:1.6;color:rgba(242,242,243,.78)}
+.top{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:30px;align-items:start}
+.panel{border:1px solid rgba(242,242,243,.17);padding:18px 18px 22px}
+label{display:block;margin-top:14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6)}label b{color:#f2f2f3;float:right;font-weight:600}
+input[type=range]{width:100%;margin-top:8px;accent-color:#5980a6}select,input[type=number]{width:100%;margin-top:6px;background:#101214;border:1px solid rgba(242,242,243,.25);color:#f2f2f3;padding:8px;font-size:13px}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(242,242,243,.17);border-right:0}.sum div{padding:16px 14px;border-right:1px solid rgba(242,242,243,.17)}.sum b{display:block;font-size:28px;font-family:Bahnschrift,sans-serif;font-weight:600;color:#5980a6}.sum span{font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.55)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}button{background:transparent;color:#8fb3d6;border:1px solid rgba(143,179,214,.5);padding:10px 14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}button:hover{background:rgba(143,179,214,.1)}
+table{width:100%;border-collapse:collapse;margin-top:22px;font-size:13px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6);text-align:right;padding:8px 6px;border-bottom:1px solid rgba(242,242,243,.25)}th:first-child,td:first-child{text-align:left}td{padding:9px 6px;border-bottom:1px solid rgba(242,242,243,.12);text-align:right}
+canvas{width:100%;display:block;border:1px solid rgba(242,242,243,.17);background:#0f1113;margin-top:22px}
+.verdict{margin-top:20px;padding:14px 16px;border-left:3px solid #5980a6;background:#101214;line-height:1.6;color:rgba(242,242,243,.88);max-width:80ch}
+.badge{display:inline-block;border:1px solid rgba(89,128,166,.6);padding:4px 10px;font:10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#5980a6}
+.note{margin:34px 0 60px;font:11px/1.65 ui-monospace,monospace;color:rgba(242,242,243,.55);max-width:100ch}.cap{margin-top:8px;font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.5)}
+.scroll{overflow-x:auto}.ok{color:#8fd19e}.bad{color:#e57373}.warn{color:#ffb74d}
+@media(max-width:860px){.top{grid-template-columns:1fr}.wrap{padding:0 14px}.sum{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<div id="site-nav" data-parent="lab" data-title="Roster cover simulation"><noscript><a href="index.html" style="color:#f2f2f3;padding:14px;display:block">&larr; Portfolio</a></noscript></div>
+<script src="nav.js"></script>
+<div class="wrap" style="padding-top:44px"><div class="lab">Lab · Simulation</div><h1>Does the roster <span style="color:#5980a6">cover the clock?</span></h1>
+<p class="lead">A hotel never closes, so engineering cover has to survive leave, sickness and days off. Set the size of the team, how many work nights and how often people are absent, and see how many days the roster really holds a safe level of cover.</p><div style="margin:-8px 0 26px"><span class="badge">Concept · illustrative inputs, not validated against measured data</span></div>
+<div class="top"><div class="panel">
+<label style="margin-top:0">People on the roster <b id="o1">6</b></label><input type="range" id="N" min="3" max="24" value="6">
+<label>Share of the roster working nights <b id="o2">33 %</b></label><input type="range" id="ns" min="0" max="60" step="5" value="33">
+<label>Days off per week per person <b id="o3">2</b></label><input type="range" id="off" min="1" max="3" step="1" value="2">
+<label>Chance someone is absent on a given day <b id="o4">10 %</b></label><input type="range" id="ab" min="0" max="30" step="1" value="10">
+<label>Minimum on site, day <b id="o5">3</b></label><input type="range" id="md" min="1" max="8" value="3">
+<label>Minimum on site, night (buddy pair = 2) <b id="o6">2</b></label><input type="range" id="mn" min="1" max="4" value="2">
+<div class="btns"><button id="rerun">New random run</button></div>
+</div><div>
+<div class="sum" id="sum"></div>
+<canvas id="cv" width="900" height="320"></canvas><div class="cap">Share of days with full cover, by roster size. Your chosen size is marked. Higher is better.</div>
+<div class="verdict" id="vd"></div>
+</div></div>
+<p class="note">Model: each person works the share of days left after their days off, and is absent on a working day with the stated chance, independently. Day and night staff are separate pools, so a night worker cannot cover a day gap. 'Fully covered' means the day minimum and the night minimum are both met. It ignores skills, leaders, overtime, call-outs and the order of leave, so it understates what a smart roster can recover and overstates a random one. 400 random years per point, repeatable. Inputs are illustrative. Runs in your browser; nothing is saved or sent.</p></div>
+<script>
+
+var DAYS=365,RUNS=400,seed=7;
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function cover(p,sd){
+  var r=rng(sd),okDay=0,okNight=0,both=0,zeroN=0,total=DAYS*RUNS;
+  var night=Math.round(p.N*p.ns/100),day=p.N-night;
+  var wd=p.off===1?6/7:p.off===2?5/7:4/7;
+  for(var u=0;u<RUNS;u++){for(var d=0;d<DAYS;d++){
+    var sd_=0,sn=0;
+    for(var i=0;i<day;i++){if(r()<wd&&r()>=p.ab/100)sd_++}
+    for(i=0;i<night;i++){if(r()<wd&&r()>=p.ab/100)sn++}
+    var a=sd_>=p.md,b=sn>=p.mn;if(a)okDay++;if(b)okNight++;if(a&&b)both++;if(sn===0)zeroN++;
+  }}
+  return {day:okDay/total,night:okNight/total,both:both/total,zero:zeroN/total,nd:night,dd:day};
+}
+function $(i){return document.getElementById(i)}
+function read(){return {N:+$("N").value,ns:+$("ns").value,off:+$("off").value,ab:+$("ab").value,md:+$("md").value,mn:+$("mn").value}}
+function labels(){$("o1").textContent=$("N").value;$("o2").textContent=$("ns").value+" %";$("o3").textContent=$("off").value;$("o4").textContent=$("ab").value+" %";$("o5").textContent=$("md").value;$("o6").textContent=$("mn").value}
+function pc(x){return (x*100).toFixed(0)+"%"}
+function run(){
+  labels();var p=read(),c=cover(p,seed);
+  $("sum").innerHTML='<div><b>'+pc(c.both)+'</b><span>Days fully covered</span></div><div><b>'+pc(c.day)+'</b><span>Day shift ok</span></div><div><b class="'+(c.night<0.9?"bad":"ok")+'">'+pc(c.night)+'</b><span>Night buddy pair ok</span></div><div><b>'+(c.zero*DAYS).toFixed(0)+'</b><span>Nights with nobody</span></div>';
+  var cv=$("cv"),g=cv.getContext("2d"),W=cv.width,H=cv.height,pad=44;g.clearRect(0,0,W,H);
+  g.strokeStyle="rgba(242,242,243,.12)";g.fillStyle="rgba(242,242,243,.55)";g.font="11px ui-monospace,monospace";
+  for(var i=0;i<=4;i++){var y=H-pad-(H-2*pad)*i/4;g.beginPath();g.moveTo(pad,y);g.lineTo(W-10,y);g.stroke();g.fillText(i*25+"%",6,y+4)}
+  var pts=[];for(var n=3;n<=24;n++){var q=read();q.N=n;pts.push([n,cover(q,seed).both])}
+  g.strokeStyle="#5980a6";g.lineWidth=2;g.beginPath();pts.forEach(function(pt,k){var x=pad+(W-pad-14)*(pt[0]-3)/21,y=H-pad-(H-2*pad)*pt[1];k?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();g.lineWidth=1;
+  pts.forEach(function(pt){var x=pad+(W-pad-14)*(pt[0]-3)/21;g.fillStyle="rgba(242,242,243,.55)";if(pt[0]%3===0)g.fillText(pt[0],x-4,H-pad+16)});
+  var sel=pts[p.N-3],x=pad+(W-pad-14)*(p.N-3)/21,y=H-pad-(H-2*pad)*sel[1];g.fillStyle="#ffb74d";g.beginPath();g.arc(x,y,6,0,6.3);g.fill();
+  g.fillStyle="rgba(242,242,243,.55)";g.fillText("people on the roster",W/2-50,H-6);
+  var need=null;pts.forEach(function(pt){if(need===null&&pt[1]>=0.95)need=pt[0]});
+  $("vd").innerHTML="With <b>"+p.N+"</b> people ("+c.dd+" on days, "+c.nd+" on nights), the property has full cover on <b>"+pc(c.both)+"</b> of days. "+(c.nd<p.mn?'<span class="bad">There are fewer night staff than the night minimum, so a buddy pair is never possible.</span> ':"")+(need?"On these settings, 95% full cover first appears at about <b>"+need+" people</b>.":"On these settings, 95% full cover is not reached at any roster size here. Lower the minimums or the absence rate.");
+}
+["N","ns","off","ab","md","mn"].forEach(function(i){$(i).addEventListener("input",run)});
+$("rerun").onclick=function(){seed+=13;run()};run();
+
+</script></body></html>

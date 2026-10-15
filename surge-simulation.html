@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pump restart surge simulation — Ivan Cronje</title>
+<style>
+*{box-sizing:border-box}html{background:#0b0c0d}body{margin:0;background:#0b0c0d;color:#f2f2f3;font-family:"Segoe UI",system-ui,Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.mono,.lab,button,select,input,th,td.m{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.lab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5980a6}
+h1{margin:14px 0 0;font-size:clamp(36px,5.5vw,68px);line-height:1;text-transform:uppercase;font-family:Bahnschrift,"Arial Narrow",sans-serif}.lead{margin:14px 0 26px;max-width:72ch;line-height:1.6;color:rgba(242,242,243,.78)}
+.top{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:30px;align-items:start}
+.panel{border:1px solid rgba(242,242,243,.17);padding:18px 18px 22px}
+label{display:block;margin-top:14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6)}label b{color:#f2f2f3;float:right;font-weight:600}
+input[type=range]{width:100%;margin-top:8px;accent-color:#5980a6}select,input[type=number]{width:100%;margin-top:6px;background:#101214;border:1px solid rgba(242,242,243,.25);color:#f2f2f3;padding:8px;font-size:13px}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(242,242,243,.17);border-right:0}.sum div{padding:16px 14px;border-right:1px solid rgba(242,242,243,.17)}.sum b{display:block;font-size:28px;font-family:Bahnschrift,sans-serif;font-weight:600;color:#5980a6}.sum span{font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.55)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}button{background:transparent;color:#8fb3d6;border:1px solid rgba(143,179,214,.5);padding:10px 14px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}button:hover{background:rgba(143,179,214,.1)}
+table{width:100%;border-collapse:collapse;margin-top:22px;font-size:13px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.6);text-align:right;padding:8px 6px;border-bottom:1px solid rgba(242,242,243,.25)}th:first-child,td:first-child{text-align:left}td{padding:9px 6px;border-bottom:1px solid rgba(242,242,243,.12);text-align:right}
+canvas{width:100%;display:block;border:1px solid rgba(242,242,243,.17);background:#0f1113;margin-top:22px}
+.verdict{margin-top:20px;padding:14px 16px;border-left:3px solid #5980a6;background:#101214;line-height:1.6;color:rgba(242,242,243,.88);max-width:80ch}
+.badge{display:inline-block;border:1px solid rgba(89,128,166,.6);padding:4px 10px;font:10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#5980a6}
+.note{margin:34px 0 60px;font:11px/1.65 ui-monospace,monospace;color:rgba(242,242,243,.55);max-width:100ch}.cap{margin-top:8px;font:10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,243,.5)}
+.scroll{overflow-x:auto}.ok{color:#8fd19e}.bad{color:#e57373}.warn{color:#ffb74d}
+@media(max-width:860px){.top{grid-template-columns:1fr}.wrap{padding:0 14px}.sum{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<div id="site-nav" data-parent="lab" data-title="Pump restart surge simulation"><noscript><a href="index.html" style="color:#f2f2f3;padding:14px;display:block">&larr; Portfolio</a></noscript></div>
+<script src="nav.js"></script>
+<div class="wrap" style="padding-top:44px"><div class="lab">Lab · Simulation</div><h1>Pump restart <span style="color:#5980a6">surge simulation</span></h1>
+<p class="lead">A power cut, a generator changeover and the booster pumps restart into a line that has lost pressure. This models the pressure spike that can follow, and shows why a staggered restart is the first fix. Pick a scenario, then change any number.</p><div style="margin:-8px 0 26px"><span class="badge">Concept · illustrative inputs, not validated against measured data</span></div>
+<div class="top"><div class="panel">
+<label style="margin-top:0">Scenario</label><select id="sc"><option value="0">Pumps restart together on generator (no protection)</option><option value="1">Staggered restart with a delay and soft start</option><option value="2">Staggered restart plus a surge arrestor</option><option value="3">Custom (use the sliders)</option></select>
+<label>Pipe material</label><select id="mat"><option value="117">Copper (E = 117 GPa)</option><option value="200">Steel (E = 200 GPa)</option><option value="3">PVC (E = 3 GPa)</option><option value="1">PE / PEX (E = 1 GPa)</option></select>
+<label>Internal diameter <b id="o1">48 mm</b></label><input type="range" id="d" min="15" max="150" value="48">
+<label>Wall thickness <b id="o2">1.5 mm</b></label><input type="range" id="e" min="0.5" max="8" step="0.1" value="1.5">
+<label>Run length to the next change <b id="o3">20 m</b></label><input type="range" id="L" min="2" max="200" value="20">
+<label>Change in flow velocity <b id="o4">2.0 m/s</b></label><input type="range" id="v" min="0.2" max="4" step="0.1" value="2">
+<label>Time over which the flow changes <b id="o5">0.02 s</b></label><input type="range" id="t" min="0.02" max="20" step="0.02" value="0.02">
+<label>Surge reduction from an arrestor <b id="o6">0 %</b></label><input type="range" id="ar" min="0" max="90" step="5" value="0">
+<label>Normal working pressure <b id="o7">500 kPa</b></label><input type="range" id="ps" min="100" max="1000" step="50" value="500">
+<label>Lowest-rated part in the run <b id="o8">1600 kPa</b></label><input type="range" id="pr" min="600" max="4000" step="100" value="1600">
+</div><div>
+<div class="sum" id="sum"></div>
+<canvas id="cv" width="900" height="340"></canvas><div class="cap">Pressure at the end of the run, shown against the rating of the weakest part (dashed). The shape is idealised and damped.</div>
+<div class="verdict" id="vd"></div>
+</div></div>
+<p class="note">Model: Joukowsky surge. Wave speed a = sqrt((K/rho) / (1 + (K/E)(D/e))) with K = 2.2 GPa for water; surge = rho x a x change in velocity when the flow changes faster than 2L/a, and 2 x rho x L x change in velocity / time when it changes more slowly. It is an upper bound for a single straight run: it ignores pump curves, check valve dynamics, air pockets, friction and branches, and real peaks are usually lower. The 70% arrestor figure is an illustrative assumption, not a manufacturer rating. Runs in your browser; nothing is saved or sent.</p></div>
+<script>
+
+var K=2.2e9,RHO=1000;
+function wave(Emp,D,e){var E=Emp*1e9;return Math.sqrt((K/RHO)/(1+(K/E)*(D/e)))}
+function surge(p){
+  var a=wave(p.E,p.D/1000,p.e/1000), tc=2*p.L/a;
+  var dp=p.t<=tc? RHO*a*p.v : 2*RHO*p.L*p.v/p.t;   /* Pa */
+  dp=dp*(1-p.ar/100);
+  return {a:a,tc:tc,dpk:dp/1000,peak:p.ps+dp/1000,full:p.t<=tc};
+}
+var PRE=[{E:117,D:48,e:1.5,L:20,v:2.0,t:0.02,ar:0},{E:117,D:48,e:1.5,L:20,v:2.0,t:10,ar:0},{E:117,D:48,e:1.5,L:20,v:2.0,t:10,ar:70}];
+function $(i){return document.getElementById(i)}
+function read(){return {E:+$("mat").value,D:+$("d").value,e:+$("e").value,L:+$("L").value,v:+$("v").value,t:+$("t").value,ar:+$("ar").value,ps:+$("ps").value,pr:+$("pr").value}}
+function labels(){$("o1").textContent=$("d").value+" mm";$("o2").textContent=$("e").value+" mm";$("o3").textContent=$("L").value+" m";$("o4").textContent=(+$("v").value).toFixed(1)+" m/s";$("o5").textContent=(+$("t").value)+" s";$("o6").textContent=$("ar").value+" %";$("o7").textContent=$("ps").value+" kPa";$("o8").textContent=$("pr").value+" kPa"}
+function draw(){
+  labels();var p=read(),r=surge(p);
+  var ratio=r.peak/p.pr;
+  $("sum").innerHTML='<div><b>'+Math.round(r.a)+'</b><span>Wave speed m/s</span></div><div><b>'+Math.round(r.dpk)+'</b><span>Surge kPa</span></div><div><b>'+Math.round(r.peak)+'</b><span>Peak kPa</span></div><div><b class="'+(ratio>1?"bad":ratio>0.8?"warn":"ok")+'">'+(ratio*100).toFixed(0)+'%</b><span>Of rating</span></div>';
+  var c=$("cv"),g=c.getContext("2d"),W=c.width,H=c.height;g.clearRect(0,0,W,H);
+  var pad=46,ymax=Math.max(r.peak,p.pr)*1.15,ymin=Math.min(0,p.ps-r.dpk*1.1);
+  function Y(v){return H-pad-(v-ymin)/(ymax-ymin)*(H-2*pad)}
+  g.strokeStyle="rgba(242,242,243,.12)";g.fillStyle="rgba(242,242,243,.5)";g.font="11px ui-monospace,monospace";
+  for(var i=0;i<=4;i++){var v=ymin+(ymax-ymin)*i/4;g.beginPath();g.moveTo(pad,Y(v));g.lineTo(W-10,Y(v));g.stroke();g.fillText(Math.round(v)+"",6,Y(v)+4)}
+  g.setLineDash([6,5]);g.strokeStyle="#e57373";g.beginPath();g.moveTo(pad,Y(p.pr));g.lineTo(W-10,Y(p.pr));g.stroke();g.fillStyle="#e57373";g.fillText("rating "+p.pr,W-130,Y(p.pr)-6);
+  g.strokeStyle="rgba(242,242,243,.35)";g.beginPath();g.moveTo(pad,Y(p.ps));g.lineTo(W-10,Y(p.ps));g.stroke();g.setLineDash([]);
+  var T=8*r.tc*2,N=700;g.strokeStyle="#5980a6";g.lineWidth=2;g.beginPath();
+  var period=4*p.L/r.a;
+  for(var k=0;k<=N;k++){var tt=T*k/N,val;
+    if(tt<0.0){val=p.ps}else{var ph=((tt/ (period/2))%2),sq=ph<1?1:-1,damp=Math.exp(-tt/(period*3));val=p.ps+(r.dpk)*sq*damp}
+    var x=pad+(W-pad-10)*k/N;k?g.lineTo(x,Y(val)):g.moveTo(x,Y(val))}
+  g.stroke();g.lineWidth=1;g.fillStyle="rgba(242,242,243,.55)";g.fillText("time \u2192  (one cycle = "+(period*1000).toFixed(0)+" ms)",pad,H-10);
+  var msg=r.full?"The flow changes faster than the pressure wave can travel the run ("+(r.tc*1000).toFixed(0)+" ms), so the full surge applies: wave speed \u00d7 velocity change \u00d7 density.":"The flow changes more slowly than the wave takes to travel and return ("+(r.tc*1000).toFixed(0)+" ms), so the surge is cut: it scales with run length \u00f7 change time.";
+  var res=ratio>1?'<span class="bad">The peak is above the rating of the weakest part. In a real run that is where a joint separates or a pipe kicks loose.</span>':ratio>0.8?'<span class="warn">Little headroom. Repeated surges fatigue joints and fittings even when no single one breaks anything.</span>':'<span class="ok">Within the rating, with headroom.</span>';
+  $("vd").innerHTML=msg+" "+res;
+}
+function setPre(i){var q=PRE[i];$("mat").value=q.E;$("d").value=q.D;$("e").value=q.e;$("L").value=q.L;$("v").value=q.v;$("t").value=q.t;$("ar").value=q.ar}
+$("sc").onchange=function(){var i=+$("sc").value;if(i<3)setPre(i);draw()};
+["mat","d","e","L","v","t","ar","ps","pr"].forEach(function(i){$(i).addEventListener("input",function(){if(i!=="mat")$("sc").value=3;draw()})});
+draw();
+
+</script></body></html>
